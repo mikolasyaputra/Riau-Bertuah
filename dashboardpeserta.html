@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peserta — Riau Bertuah OJL</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bi1:#002f6c;--bi2:#003f88;--bi3:#0055b3;--bi4:#1a78d4;--bi5:#4fa3f0;--bi6:#b3d8ff;
+  --emas:#c8940a;--emas2:#e8b020;--emas3:#ffd060;
+  --red:#e05050;--green:#30b060;--orange:#e08020;
+  --tr:0.28s ease;
+}
+[data-theme="dark"]{
+  --bg:#010c1c;--bg2:#020e22;--bg3:#041226;
+  --sidebar-bg:#010a18;--sidebar-bd:rgba(0,85,179,0.22);
+  --topbar-bg:rgba(1,10,24,0.90);--topbar-bd:rgba(0,85,179,0.20);
+  --fg:#d0e8ff;--fg2:rgba(160,210,255,0.55);--fg3:rgba(160,210,255,0.80);
+  --card-bg:rgba(0,55,140,0.08);--card-bd:rgba(0,85,179,0.20);--card-h:rgba(0,55,140,0.18);
+  --tbl-hd:rgba(0,55,140,0.18);--tbl-row:rgba(0,55,140,0.05);--tbl-row-h:rgba(0,55,140,0.13);
+  --tbl-bd:rgba(0,85,179,0.14);
+  --inp-bg:rgba(0,55,140,0.10);--inp-bd:rgba(0,85,179,0.25);--inp-c:#d0e8ff;--inp-ph:rgba(160,210,255,0.28);
+  --modal-bg:linear-gradient(160deg,#020e22 0%,#010a18 100%);--modal-bd:rgba(0,85,179,0.28);
+  --overlay:rgba(0,4,14,0.88);
+  --lbl:rgba(160,210,255,0.48);
+  --sep:rgba(0,85,179,0.15);
+  --badge-aktif-bg:rgba(48,176,96,0.15);--badge-aktif-bd:rgba(48,176,96,0.35);--badge-aktif-c:#50d080;
+  --badge-nonaktif-bg:rgba(224,80,80,0.12);--badge-nonaktif-bd:rgba(224,80,80,0.30);--badge-nonaktif-c:#e08080;
+  --badge-baru-bg:rgba(200,148,10,0.14);--badge-baru-bd:rgba(200,148,10,0.35);--badge-baru-c:#ffd060;
+  --scroll:rgba(0,85,179,0.25);
+  --upload-bg:rgba(0,55,140,0.08);--upload-bd:rgba(0,85,179,0.30);--upload-h:rgba(0,85,179,0.18);
+}
+[data-theme="light"]{
+  --bg:#eef5ff;--bg2:#f5f9ff;--bg3:#e8f0ff;
+  --sidebar-bg:#f0f6ff;--sidebar-bd:rgba(0,63,136,0.12);
+  --topbar-bg:rgba(240,246,255,0.95);--topbar-bd:rgba(0,63,136,0.12);
+  --fg:#001a3a;--fg2:rgba(0,26,58,0.52);--fg3:rgba(0,26,58,0.78);
+  --card-bg:rgba(255,255,255,0.90);--card-bd:rgba(0,63,136,0.14);--card-h:rgba(255,255,255,0.99);
+  --tbl-hd:rgba(0,63,136,0.08);--tbl-row:rgba(255,255,255,0.60);--tbl-row-h:rgba(0,63,136,0.05);
+  --tbl-bd:rgba(0,63,136,0.10);
+  --inp-bg:rgba(255,255,255,0.95);--inp-bd:rgba(0,63,136,0.20);--inp-c:#001a3a;--inp-ph:rgba(0,26,58,0.28);
+  --modal-bg:linear-gradient(160deg,#f5faff 0%,#e8f2ff 100%);--modal-bd:rgba(0,63,136,0.18);
+  --overlay:rgba(0,20,60,0.45);
+  --lbl:rgba(0,26,58,0.50);
+  --sep:rgba(0,63,136,0.10);
+  --badge-aktif-bg:rgba(48,176,96,0.10);--badge-aktif-bd:rgba(48,176,96,0.28);--badge-aktif-c:#1a8040;
+  --badge-nonaktif-bg:rgba(224,80,80,0.08);--badge-nonaktif-bd:rgba(224,80,80,0.22);--badge-nonaktif-c:#b03030;
+  --badge-baru-bg:rgba(200,148,10,0.10);--badge-baru-bd:rgba(200,148,10,0.28);--badge-baru-c:#8a6000;
+  --scroll:rgba(0,63,136,0.18);
+  --upload-bg:rgba(0,63,136,0.05);--upload-bd:rgba(0,63,136,0.22);--upload-h:rgba(0,63,136,0.10);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;overflow-x:hidden;transition:background var(--tr),color var(--tr);}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:10px;}
+
+/* ══ LAYOUT ══ */
+.layout{display:flex;min-height:100vh;}
+
+/* ══ SIDEBAR ══ */
+.sidebar{
+  width:240px;min-height:100vh;flex-shrink:0;
+  background:var(--sidebar-bg);border-right:1px solid var(--sidebar-bd);
+  display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;bottom:0;z-index:200;
+  transition:background var(--tr),border-color var(--tr),transform var(--tr);
+}
+.sidebar-top{padding:20px 18px 16px;border-bottom:1px solid var(--sidebar-bd);display:flex;align-items:center;gap:12px;}
+.sidebar-logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--bi2),var(--bi4));display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(0,85,179,0.45);}
+.sidebar-logo svg{width:18px;height:18px;}
+.sidebar-brand{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--fg);letter-spacing:1px;line-height:1.2;}
+.sidebar-brand small{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:var(--fg2);font-weight:600;letter-spacing:2px;text-transform:uppercase;display:block;margin-top:1px;}
+.sidebar-gold-line{height:2px;background:linear-gradient(90deg,var(--bi3),var(--emas2),var(--bi4));background-size:200%;animation:shimmer 4s linear infinite;}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+.sidebar-section{padding:18px 14px 8px;font-size:9px;font-weight:700;color:var(--fg2);letter-spacing:2.5px;text-transform:uppercase;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 14px;margin:2px 8px;border-radius:10px;cursor:pointer;transition:all 0.2s;text-decoration:none;color:var(--fg2);font-size:13px;font-weight:600;position:relative;}
+.nav-item:hover{background:var(--card-bg);color:var(--fg);}
+.nav-item.active{background:rgba(0,85,179,0.18);color:var(--bi5);border:1px solid rgba(0,85,179,0.25);}
+[data-theme="light"] .nav-item.active{background:rgba(0,63,136,0.10);color:var(--bi2);border-color:rgba(0,63,136,0.20);}
+.nav-item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:60%;background:var(--bi4);border-radius:0 3px 3px 0;}
+.nav-ico{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
+.nav-progress{margin-left:auto;font-size:10px;font-weight:800;color:var(--emas3);}
+.sidebar-footer{margin-top:auto;padding:14px 14px 18px;border-top:1px solid var(--sidebar-bd);}
+.user-pill{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:var(--card-bg);border:1px solid var(--card-bd);}
+.user-ava{width:32px;height:32px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#1a3a08,#2d8a30);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;}
+.user-info{flex:1;min-width:0;}
+.user-name{font-size:12px;font-weight:700;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.user-role{font-size:10px;color:var(--fg2);}
+.user-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;}
+
+/* ══ MAIN ══ */
+.main{margin-left:240px;flex:1;display:flex;flex-direction:column;min-height:100vh;}
+
+/* ══ TOPBAR ══ */
+.topbar{height:62px;display:flex;align-items:center;padding:0 28px;gap:14px;background:var(--topbar-bg);border-bottom:1px solid var(--topbar-bd);position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+.topbar-title{font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:var(--fg);letter-spacing:1px;}
+.topbar-title span{color:var(--bi5);}
+[data-theme="light"] .topbar-title span{color:var(--bi3);}
+.topbar-sep{flex:1;}
+.topbar-btn{width:38px;height:38px;border-radius:50%;background:var(--card-bg);border:1px solid var(--card-bd);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all 0.2s;position:relative;}
+.topbar-btn:hover{background:var(--card-h);}
+.notif-dot{position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--emas3);border:1.5px solid var(--bg);}
+.breadcrumb{font-size:11px;color:var(--fg2);display:flex;align-items:center;gap:5px;}
+.breadcrumb span{color:var(--bi5);}
+[data-theme="light"] .breadcrumb span{color:var(--bi3);}
+
+/* ══ CONTENT ══ */
+.content{padding:24px 28px;flex:1;}
+
+/* ══ PAGE HEADER ══ */
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.page-tag{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--bi5);background:rgba(0,85,179,0.12);border:1px solid rgba(0,85,179,0.28);border-radius:100px;padding:3px 12px;display:inline-block;margin-bottom:6px;}
+[data-theme="light"] .page-tag{color:var(--bi3);background:rgba(0,63,136,0.08);border-color:rgba(0,63,136,0.22);}
+.page-title{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:var(--fg);}
+.page-title span{color:var(--bi5);}
+[data-theme="light"] .page-title span{color:var(--bi3);}
+
+/* ══ WELCOME BANNER ══ */
+.welcome-banner{
+  background:linear-gradient(135deg,rgba(0,47,108,0.6) 0%,rgba(0,85,179,0.35) 50%,rgba(200,148,10,0.20) 100%);
+  border:1px solid rgba(0,85,179,0.30);border-radius:20px;padding:28px 32px;
+  position:relative;overflow:hidden;margin-bottom:24px;
+}
+.welcome-banner::before{
+  content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;
+  background:radial-gradient(circle,rgba(200,148,10,0.12) 0%,transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+.welcome-banner::after{
+  content:'';position:absolute;bottom:-60px;left:30%;width:300px;height:200px;
+  background:radial-gradient(circle,rgba(0,85,179,0.10) 0%,transparent 70%);
+  pointer-events:none;
+}
+.wb-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.wb-left{}
+.wb-greeting{font-size:12px;font-weight:600;color:var(--emas3);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.wb-name{font-family:'Cinzel',serif;font-size:24px;font-weight:700;color:var(--fg);margin-bottom:4px;}
+.wb-sub{font-size:13px;color:var(--fg2);}
+.wb-right{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
+.wb-stat{text-align:center;padding:12px 20px;background:rgba(0,55,140,0.15);border:1px solid rgba(0,85,179,0.22);border-radius:14px;}
+.wb-stat-val{font-family:'Cinzel',serif;font-size:22px;font-weight:900;color:var(--bi5);}
+[data-theme="light"] .wb-stat-val{color:var(--bi2);}
+.wb-stat-lbl{font-size:10px;color:var(--fg2);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
+.wb-progress{margin-top:20px;}
+.wb-prog-label{display:flex;justify-content:space-between;margin-bottom:8px;}
+.wb-prog-label span{font-size:12px;font-weight:700;color:var(--fg2);}
+.wb-prog-label strong{font-size:12px;font-weight:800;color:var(--emas3);}
+.wb-prog-bar{height:8px;background:rgba(0,85,179,0.15);border-radius:4px;overflow:hidden;}
+.wb-prog-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--bi3),var(--emas2),var(--bi5));background-size:200%;animation:shimmer 3s linear infinite;transition:width 1s ease;}
+
+/* ══ STAT CARDS ══ */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.stat-card{background:var(--card-bg);border:1px solid var(--card-bd);border-radius:16px;padding:20px;position:relative;overflow:hidden;transition:all 0.25s;}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent-line,linear-gradient(90deg,var(--bi3),var(--bi5)));border-radius:3px 3px 0 0;}
+.stat-card:hover{background:var(--card-h);transform:translateY(-2px);}
+.stat-card-icon{font-size:26px;margin-bottom:8px;}
+.stat-card-val{font-family:'Cinzel',serif;font-size:26px;font-weight:900;color:var(--bi5);line-height:1;}
+[data-theme="light"] .stat-card-val{color:var(--bi2);}
+.stat-card-lbl{font-size:11px;color:var(--fg2);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px;}
+.stat-card-sub{font-size:11px;color:var(--fg2);margin-top:6px;}
+.sc-ok{color:var(--green);}
+.sc-wait{color:var(--emas3);}
+.sc-no{color:var(--red);}
+
+/* ══ SECTION CARD ══ */
+.section-card{background:var(--card-bg);border:1px solid var(--card-bd);border-radius:18px;overflow:hidden;margin-bottom:24px;}
+.section-card-header{padding:18px 22px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--sep);flex-wrap:wrap;}
+.section-card-title{font-size:15px;font-weight:800;color:var(--fg);}
+.section-card-title span{color:var(--bi5);}
+[data-theme="light"] .section-card-title span{color:var(--bi3);}
+.section-card-sub{font-size:12px;color:var(--fg2);}
+.sc-spacer{flex:1;}
+
+/* ══ UPLOAD ZONE ══ */
+.upload-zone{
+  border:2px dashed var(--upload-bd);border-radius:14px;padding:32px 24px;text-align:center;
+  background:var(--upload-bg);cursor:pointer;transition:all 0.25s;position:relative;
+}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--bi4);background:var(--upload-h);}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.uz-ico{font-size:36px;margin-bottom:10px;}
+.uz-title{font-size:14px;font-weight:700;color:var(--fg);margin-bottom:4px;}
+.uz-sub{font-size:11.5px;color:var(--fg2);}
+.uz-limit{font-size:11px;color:var(--fg2);margin-top:6px;opacity:0.7;}
+
+/* ══ FILE CARD ══ */
+.file-list{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.file-card{
+  display:flex;align-items:center;gap:12px;
+  background:var(--tbl-row);border:1px solid var(--tbl-bd);
+  border-radius:12px;padding:12px 14px;
+  transition:all 0.2s;
+}
+.file-card:hover{background:var(--tbl-row-h);}
+.file-ico{font-size:24px;flex-shrink:0;}
+.file-info{flex:1;min-width:0;}
+.file-name{font-size:13px;font-weight:700;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.file-meta{font-size:11px;color:var(--fg2);margin-top:2px;}
+.file-status{flex-shrink:0;}
+.file-prog{margin-top:6px;}
+.file-prog-bar{height:4px;background:var(--card-bd);border-radius:2px;overflow:hidden;}
+.file-prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--bi3),var(--bi5));transition:width 0.4s ease;}
+
+/* ══ PESERTA TAMBAH ══ */
+.siswa-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;padding:18px 22px;}
+.siswa-card{
+  background:var(--tbl-row);border:1px solid var(--tbl-bd);
+  border-radius:14px;padding:16px;cursor:pointer;transition:all 0.2s;
+  position:relative;overflow:hidden;
+}
+.siswa-card:hover{background:var(--tbl-row-h);transform:translateY(-2px);}
+.siswa-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc,linear-gradient(90deg,var(--bi3),var(--bi5)));}
+.siswa-ava{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#fff;margin-bottom:10px;}
+.siswa-name{font-size:13px;font-weight:700;color:var(--fg);margin-bottom:2px;}
+.siswa-sub{font-size:11px;color:var(--fg2);}
+.siswa-badge{position:absolute;top:14px;right:12px;}
+
+/* ══ SKOR CARD ══ */
+.skor-card{
+  background:var(--tbl-row);border:1px solid var(--tbl-bd);border-radius:14px;padding:18px;
+  transition:all 0.2s;
+}
+.skor-card:hover{background:var(--tbl-row-h);}
+.skor-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.skor-ico{font-size:22px;}
+.skor-label{font-size:12px;font-weight:700;color:var(--fg2);text-transform:uppercase;letter-spacing:1px;}
+.skor-val{font-family:'Cinzel',serif;font-size:36px;font-weight:900;line-height:1;}
+.skor-change{font-size:12px;font-weight:700;margin-top:6px;}
+.skor-up{color:var(--green);}
+.skor-down{color:var(--red);}
+.skor-eq{color:var(--fg2);}
+
+/* ══ DOKUMENTASI GRID ══ */
+.foto-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;padding:18px 22px;}
+.foto-card{border-radius:12px;overflow:hidden;position:relative;background:var(--tbl-hd);border:1px solid var(--tbl-bd);cursor:pointer;transition:all 0.2s;aspect-ratio:4/3;}
+.foto-card:hover{transform:scale(1.02);box-shadow:0 8px 24px rgba(0,0,0,0.40);}
+.foto-card img{width:100%;height:100%;object-fit:cover;display:block;}
+.foto-thumb{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+.foto-thumb-ico{font-size:32px;opacity:0.5;}
+.foto-thumb-txt{font-size:10px;color:var(--fg2);font-weight:600;}
+.foto-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,transparent 60%);opacity:0;transition:opacity 0.2s;}
+.foto-card:hover .foto-overlay{opacity:1;}
+.foto-caption{position:absolute;bottom:0;left:0;right:0;padding:10px;font-size:11px;font-weight:600;color:#fff;transform:translateY(4px);transition:transform 0.2s;}
+.foto-card:hover .foto-caption{transform:none;}
+.foto-add{border:2px dashed var(--upload-bd);background:var(--upload-bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:all 0.2s;}
+.foto-add:hover{border-color:var(--bi4);background:var(--upload-h);}
+.foto-add span{font-size:28px;}
+.foto-add p{font-size:11px;font-weight:600;color:var(--fg2);}
+.foto-add input{position:absolute;inset:0;opacity:0;cursor:pointer;}
+
+/* ══ TAHAP STEPPER ══ */
+.stepper{display:flex;align-items:center;gap:0;margin-bottom:24px;}
+.step{display:flex;align-items:center;gap:0;flex:1;}
+.step:last-child{flex:0;}
+.step-circle{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;border:2px solid;transition:all 0.3s;
+}
+.step-circle.done{background:linear-gradient(135deg,var(--bi2),var(--bi4));border-color:var(--bi4);color:#fff;box-shadow:0 4px 14px rgba(0,85,179,0.40);}
+.step-circle.active{background:linear-gradient(135deg,rgba(200,148,10,0.2),rgba(200,148,10,0.1));border-color:var(--emas2);color:var(--emas3);}
+.step-circle.pending{background:transparent;border-color:var(--card-bd);color:var(--fg2);}
+.step-line{flex:1;height:2px;background:var(--card-bd);}
+.step-line.done{background:linear-gradient(90deg,var(--bi3),var(--bi5));}
+.step-wrap{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.step-lbl{font-size:10px;font-weight:700;color:var(--fg2);text-align:center;white-space:nowrap;}
+.step-lbl.active{color:var(--emas3);}
+.step-lbl.done{color:var(--bi5);}
+[data-theme="light"] .step-lbl.done{color:var(--bi3);}
+
+/* ══ BUTTON ══ */
+.btn{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;border:none;border-radius:10px;padding:9px 18px;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:7px;}
+.btn-primary{color:#fff;background:linear-gradient(135deg,var(--bi2),var(--bi4));box-shadow:0 4px 14px rgba(0,85,179,0.40);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,85,179,0.55);}
+.btn-gold{color:#1a0800;background:linear-gradient(135deg,var(--emas3),var(--emas2));box-shadow:0 4px 14px rgba(200,148,10,0.35);}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(200,148,10,0.50);}
+.btn-ghost{color:var(--fg2);background:var(--card-bg);border:1px solid var(--card-bd);}
+.btn-ghost:hover{background:var(--card-h);color:var(--fg);}
+.btn-danger{color:#fff;background:linear-gradient(135deg,#8b1a1a,var(--red));}
+.btn-danger:hover{transform:translateY(-2px);}
+.btn-green{color:#fff;background:linear-gradient(135deg,#1a5a28,var(--green));box-shadow:0 4px 14px rgba(48,176,96,0.35);}
+.btn-green:hover{transform:translateY(-2px);}
+.btn-sm{padding:6px 12px;font-size:11.5px;border-radius:8px;}
+.btn-icon{width:32px;height:32px;padding:0;justify-content:center;border-radius:8px;font-size:14px;}
+
+/* ══ TABLE ══ */
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+thead tr{background:var(--tbl-hd);}
+th{padding:12px 16px;text-align:left;font-size:10.5px;font-weight:700;color:var(--fg2);letter-spacing:1.5px;text-transform:uppercase;border-bottom:1px solid var(--tbl-bd);white-space:nowrap;}
+td{padding:13px 16px;font-size:13px;color:var(--fg3);border-bottom:1px solid var(--tbl-bd);vertical-align:middle;}
+tbody tr{background:var(--tbl-row);transition:background 0.15s;}
+tbody tr:hover{background:var(--tbl-row-h);}
+tbody tr:last-child td{border-bottom:none;}
+.tbl-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;}
+.tbl-user{display:flex;align-items:center;gap:10px;}
+.tbl-name{font-size:13px;font-weight:700;color:var(--fg);}
+.tbl-sub{font-size:11px;color:var(--fg2);}
+
+/* ══ BADGES ══ */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;border-radius:100px;padding:3px 10px;}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.badge-aktif{background:var(--badge-aktif-bg);border:1px solid var(--badge-aktif-bd);color:var(--badge-aktif-c);}
+.badge-nonaktif{background:var(--badge-nonaktif-bg);border:1px solid var(--badge-nonaktif-bd);color:var(--badge-nonaktif-c);}
+.badge-baru{background:var(--badge-baru-bg);border:1px solid var(--badge-baru-bd);color:var(--badge-baru-c);}
+
+/* ══ PROGRESS BAR ══ */
+.prog-wrap{display:flex;align-items:center;gap:8px;}
+.prog-bar{flex:1;height:6px;background:var(--card-bd);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--bi3),var(--bi5));transition:width 0.5s ease;}
+.prog-val{font-size:11px;font-weight:700;color:var(--fg2);min-width:28px;text-align:right;}
+
+/* ══ FORM ══ */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-label{font-size:11px;font-weight:700;color:var(--lbl);letter-spacing:1px;text-transform:uppercase;}
+.form-input,.form-select,.form-textarea{background:var(--inp-bg);border:1px solid var(--inp-bd);border-radius:10px;padding:11px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--inp-c);outline:none;transition:all 0.22s;width:100%;}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--inp-ph);}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:rgba(26,120,212,0.60);box-shadow:0 0 0 3px rgba(0,85,179,0.10);}
+.form-textarea{resize:vertical;min-height:80px;}
+.form-select{cursor:pointer;}
+
+/* ══ MODAL ══ */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:2000;backdrop-filter:blur(14px);align-items:center;justify-content:center;background:var(--overlay);}
+.modal-overlay.open{display:flex;animation:fadeIn 0.22s ease;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.modal-box{background:var(--modal-bg);border:1px solid var(--modal-bd);border-radius:22px;width:100%;max-width:560px;position:relative;animation:modalUp 0.30s cubic-bezier(0.34,1.4,0.64,1) both;box-shadow:0 28px 70px rgba(0,0,0,0.65);max-height:92vh;overflow-y:auto;}
+@keyframes modalUp{from{opacity:0;transform:translateY(30px) scale(0.96);}to{opacity:1;transform:none;}}
+.modal-bar{position:absolute;top:0;left:0;right:0;height:4px;border-radius:22px 22px 0 0;background:linear-gradient(90deg,var(--bi1),var(--emas),var(--bi3),var(--bi5),var(--bi1));background-size:300%;animation:shimmer 3s linear infinite;}
+.modal-header{padding:28px 28px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.modal-ico{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--bi1),var(--bi3));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 6px 20px rgba(0,85,179,0.40);}
+.modal-title{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--fg);letter-spacing:1px;}
+.modal-sub{font-size:11px;color:var(--fg2);margin-top:3px;}
+.modal-close{width:30px;height:30px;border-radius:50%;background:var(--card-bg);border:1px solid var(--card-bd);color:var(--fg2);font-size:14px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-close:hover{opacity:0.7;}
+.modal-body{padding:22px 28px;}
+.modal-footer{padding:0 28px 24px;display:flex;gap:10px;justify-content:flex-end;}
+
+/* ══ TOAST ══ */
+#toast-stack{position:fixed;top:76px;right:22px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
+.toast-item{background:var(--modal-bg);border:1px solid var(--modal-bd);border-radius:12px;padding:13px 18px;font-size:13px;font-weight:600;color:var(--fg);box-shadow:0 10px 32px rgba(0,0,0,0.50);animation:toastIn 0.35s cubic-bezier(0.34,1.4,0.64,1) both;display:flex;align-items:center;gap:10px;min-width:260px;max-width:320px;border-left:4px solid var(--bi4);}
+.toast-item.success{border-left-color:var(--green);}
+.toast-item.error{border-left-color:var(--red);}
+.toast-item.warning{border-left-color:var(--emas3);}
+@keyframes toastIn{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:none;}}
+
+/* ══ TAB ══ */
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+.tab-bar{display:flex;gap:4px;background:var(--tbl-hd);border-radius:10px;padding:4px;margin-bottom:20px;}
+.tab-btn{font-size:12.5px;font-weight:700;padding:8px 18px;border-radius:8px;border:none;background:none;cursor:pointer;transition:all 0.2s;color:var(--fg2);font-family:'Plus Jakarta Sans',sans-serif;}
+.tab-btn.active{background:var(--card-bg);color:var(--fg);box-shadow:0 2px 8px rgba(0,0,0,0.15);}
+
+/* ══ TOPLINE ══ */
+.topline{height:4px;background:linear-gradient(90deg,var(--bi1),var(--emas),var(--bi3),var(--bi5),var(--bi1));background-size:200%;animation:shimmer 5s linear infinite;position:fixed;top:0;left:0;right:0;z-index:999;}
+
+/* ══ ALERT ══ */
+.alert{display:flex;align-items:flex-start;gap:12px;padding:14px 18px;border-radius:14px;margin-bottom:20px;}
+.alert-info{background:rgba(0,85,179,0.10);border:1px solid rgba(0,85,179,0.25);}
+.alert-success{background:rgba(48,176,96,0.10);border:1px solid rgba(48,176,96,0.25);}
+.alert-warning{background:rgba(200,148,10,0.10);border:1px solid rgba(200,148,10,0.25);}
+.alert-ico{font-size:18px;flex-shrink:0;margin-top:1px;}
+.alert-title{font-size:13px;font-weight:700;color:var(--fg);margin-bottom:2px;}
+.alert-msg{font-size:12px;color:var(--fg2);line-height:1.6;}
+
+/* ══ SKOR INPUT ══ */
+.skor-input-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.skor-big-input{width:100px;text-align:center;font-family:'Cinzel',serif;font-size:32px;font-weight:900;background:var(--inp-bg);border:2px solid var(--inp-bd);border-radius:16px;padding:12px;color:var(--inp-c);outline:none;transition:all 0.2s;}
+.skor-big-input:focus{border-color:var(--bi4);box-shadow:0 0 0 4px rgba(0,85,179,0.12);}
+
+/* ══ TIMELINE ══ */
+.timeline{padding:18px 22px;display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;gap:14px;padding-bottom:20px;position:relative;}
+.tl-item::before{content:'';position:absolute;left:15px;top:30px;bottom:0;width:2px;background:var(--sep);}
+.tl-item:last-child::before{display:none;}
+.tl-ico{width:32px;height:32px;border-radius:50%;background:var(--card-bg);border:2px solid var(--card-bd);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;z-index:1;}
+.tl-ico.done{background:linear-gradient(135deg,var(--bi2),var(--bi4));border-color:var(--bi4);}
+.tl-content{}
+.tl-title{font-size:13px;font-weight:700;color:var(--fg);margin-bottom:3px;}
+.tl-sub{font-size:11.5px;color:var(--fg2);}
+.tl-date{font-size:10.5px;color:var(--fg2);margin-top:4px;opacity:0.7;}
+
+/* ══ HAMBURGER ══ */
+.hamburger{display:none;background:var(--card-bg);border:1px solid var(--card-bd);border-radius:8px;width:36px;height:36px;align-items:center;justify-content:center;cursor:pointer;font-size:18px;}
+
+/* ══ SCORE COMPARE ══ */
+.score-compare{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;padding:18px 22px;}
+.score-side{text-align:center;}
+.score-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--fg2);margin-bottom:6px;}
+.score-num{font-family:'Cinzel',serif;font-size:48px;font-weight:900;line-height:1;}
+.score-pre{color:var(--orange);}
+.score-post{color:var(--green);}
+.score-arrow{font-size:28px;text-align:center;}
+.score-delta{font-size:12px;font-weight:800;margin-top:4px;}
+.score-status{font-size:11px;color:var(--fg2);margin-top:2px;}
+
+/* THEME TOGGLE */
+.theme-btn .ti{position:absolute;transition:opacity 0.3s,transform 0.4s;}
+[data-theme="dark"]  .ti-d{opacity:1;transform:rotate(0);}
+[data-theme="dark"]  .ti-l{opacity:0;transform:rotate(90deg);}
+[data-theme="light"] .ti-d{opacity:0;transform:rotate(-90deg);}
+[data-theme="light"] .ti-l{opacity:1;transform:rotate(0);}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;}
+  .hamburger{display:flex;}
+  .stat-row{grid-template-columns:1fr 1fr;}
+  .form-grid{grid-template-columns:1fr;}
+  .content{padding:16px;}
+  .topbar{padding:0 16px;}
+  .wb-right{display:none;}
+}
+@media(max-width:500px){
+  .stat-row{grid-template-columns:1fr;}
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+.animate-in{animation:fadeUp 0.45s ease both;}
+</style>
+</head>
+<body>
+<div class="topline"></div>
+<div id="toast-stack"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-top">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 18 18" fill="none">
+        <circle cx="9" cy="9" r="8" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+        <g transform="translate(9,9)">
+          <ellipse cx="0" cy="-4.5" rx="1.8" ry="3" fill="rgba(255,208,96,0.9)" transform="rotate(0)"/>
+          <ellipse cx="0" cy="-4.5" rx="1.8" ry="3" fill="rgba(255,208,96,0.7)" transform="rotate(60)"/>
+          <ellipse cx="0" cy="-4.5" rx="1.8" ry="3" fill="rgba(255,208,96,0.9)" transform="rotate(120)"/>
+          <ellipse cx="0" cy="-4.5" rx="1.8" ry="3" fill="rgba(255,208,96,0.7)" transform="rotate(180)"/>
+          <ellipse cx="0" cy="-4.5" rx="1.8" ry="3" fill="rgba(255,208,96,0.9)" transform="rotate(240)"/>
+          <ellipse cx="0" cy="-4.5" rx="1.8" ry="3" fill="rgba(255,208,96,0.7)" transform="rotate(300)"/>
+          <circle r="2.2" fill="rgba(255,255,255,0.95)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="sidebar-brand">
+      Riau Bertuah
+      <small>Dashboard Peserta</small>
+    </div>
+  </div>
+  <div class="sidebar-gold-line"></div>
+
+  <div class="sidebar-section">Menu Saya</div>
+  <a class="nav-item active" onclick="showPage('beranda')">
+    <span class="nav-ico">🏠</span> Beranda
+  </a>
+  <a class="nav-item" onclick="showPage('ojl')">
+    <span class="nav-ico">📋</span> Laporan OJL
+    <span class="nav-progress" id="nav-ojl-pct">50%</span>
+  </a>
+  <a class="nav-item" onclick="showPage('peserta')">
+    <span class="nav-ico">👨‍🏫</span> Data Guru
+  </a>
+  <a class="nav-item" onclick="showPage('pretest')">
+    <span class="nav-ico">📝</span> Pretest & Postest
+  </a>
+  <a class="nav-item" onclick="showPage('dokumentasi')">
+    <span class="nav-ico">📸</span> Dokumentasi
+  </a>
+
+  <div class="sidebar-section">Informasi</div>
+  <a class="nav-item" onclick="showPage('aktivitas')">
+    <span class="nav-ico">📅</span> Riwayat Aktivitas
+  </a>
+  <a class="nav-item" onclick="showPage('profil')">
+    <span class="nav-ico">👤</span> Profil Saya
+  </a>
+
+  <div class="sidebar-footer">
+    <div class="user-pill">
+      <div class="user-ava">SD</div>
+      <div class="user-info">
+        <div class="user-name">Peserta</div>
+        <div class="user-role">SDN 001 Pekanbaru</div>
+      </div>
+      <div class="user-dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="main">
+  <div class="topbar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <div class="topbar-title" id="topbar-title">Beranda <span>Peserta</span></div>
+      <div class="breadcrumb">Riau Bertuah › <span id="topbar-sub">Dashboard</span></div>
+    </div>
+    <div class="topbar-sep"></div>
+    <button class="topbar-btn theme-btn" onclick="toggleTheme()" title="Ganti tema">
+      <span class="ti ti-d">🌙</span>
+      <span class="ti ti-l">☀️</span>
+    </button>
+    <button class="topbar-btn" onclick="showToast('Tidak ada notifikasi baru','info')">
+      <span>🔔</span>
+      <div class="notif-dot"></div>
+    </button>
+    <a href="admin-dashboard.html" class="btn btn-ghost btn-sm" style="text-decoration:none;" onclick="showToast('Login sebagai Admin','info')">🔑 Admin</a>
+  </div>
+
+  <div class="content">
+
+    <!-- ═══ PAGE: BERANDA ═══ -->
+    <div id="page-beranda" class="tab-content active animate-in">
+
+      <!-- Welcome Banner -->
+      <div class="welcome-banner">
+        <div class="wb-top">
+          <div class="wb-left">
+            <div class="wb-greeting">Selamat Datang</div>
+            <div class="wb-name">Peserta S.Pd.</div>
+            <div class="wb-sub">SDN 001 Pekanbaru · Fasda CBPR 2025 · Kabupaten Pekanbaru</div>
+          </div>
+          <div class="wb-right">
+            <div class="wb-stat">
+              <div class="wb-stat-val" id="wb-murid">8</div>
+              <div class="wb-stat-lbl">Peserta</div>
+            </div>
+            <div class="wb-stat">
+              <div class="wb-stat-val" id="wb-laporan">2</div>
+              <div class="wb-stat-lbl">Laporan</div>
+            </div>
+            <div class="wb-stat">
+              <div class="wb-stat-val">75</div>
+              <div class="wb-stat-lbl">Skor Pretest</div>
+            </div>
+            <div class="wb-stat">
+              <div class="wb-stat-val" id="wb-post">—</div>
+              <div class="wb-stat-lbl">Skor Postest</div>
+            </div>
+          </div>
+        </div>
+        <div class="wb-progress">
+          <div class="wb-prog-label">
+            <span>Progress OJL Keseluruhan</span>
+            <strong id="wb-pct">50%</strong>
+          </div>
+          <div class="wb-prog-bar">
+            <div class="wb-prog-fill" id="wb-bar" style="width:50%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="stat-row">
+        <div class="stat-card" style="--accent-line:linear-gradient(90deg,#003f88,#4fa3f0)">
+          <div class="stat-card-icon">📋</div>
+          <div class="stat-card-val" id="stat-laporan">2</div>
+          <div class="stat-card-lbl">Laporan OJL</div>
+          <div class="stat-card-sub"><span class="sc-wait">2 dari 4 tahap</span></div>
+        </div>
+        <div class="stat-card" style="--accent-line:linear-gradient(90deg,#c8940a,#ffd060)">
+          <div class="stat-card-icon">👨‍🏫</div>
+          <div class="stat-card-val" id="stat-murid">8</div>
+          <div class="stat-card-lbl">Peserta Terdaftar</div>
+          <div class="stat-card-sub"><span class="sc-ok">● Semua aktif</span></div>
+        </div>
+        <div class="stat-card" style="--accent-line:linear-gradient(90deg,#1a6a30,#40c080)">
+          <div class="stat-card-icon">📝</div>
+          <div class="stat-card-val">75</div>
+          <div class="stat-card-lbl">Skor Pretest</div>
+          <div class="stat-card-sub"><span class="sc-ok">● Sudah diinput</span></div>
+        </div>
+        <div class="stat-card" style="--accent-line:linear-gradient(90deg,#8b4010,#e08020)">
+          <div class="stat-card-icon">🖼</div>
+          <div class="stat-card-val" id="stat-foto">4</div>
+          <div class="stat-card-lbl">Dokumentasi</div>
+          <div class="stat-card-sub"><span class="sc-wait">● Bisa tambah lebih</span></div>
+        </div>
+      </div>
+
+      <!-- 2 col: Stepper + Timeline -->
+      <div style="display:grid;grid-template-columns:1fr 340px;gap:18px;flex-wrap:wrap;">
+
+        <div class="section-card animate-in">
+          <div class="section-card-header">
+            <div>
+              <div class="section-card-title">Tahapan <span>OJL Saya</span></div>
+              <div class="section-card-sub">Status pengumpulan setiap tahap</div>
+            </div>
+            <div class="sc-spacer"></div>
+            <button class="btn btn-gold btn-sm" onclick="showPage('ojl')">Upload Laporan →</button>
+          </div>
+          <div style="padding:22px 24px;">
+            <div class="stepper" style="margin-bottom:28px;">
+              <div class="step">
+                <div class="step-wrap">
+                  <div class="step-circle done">✓</div>
+                  <div class="step-lbl done">Tahap 1</div>
+                </div>
+                <div class="step-line done"></div>
+              </div>
+              <div class="step">
+                <div class="step-wrap">
+                  <div class="step-circle done">✓</div>
+                  <div class="step-lbl done">Tahap 2</div>
+                </div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step">
+                <div class="step-wrap">
+                  <div class="step-circle active">3</div>
+                  <div class="step-lbl active">Tahap 3</div>
+                </div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step">
+                <div class="step-wrap">
+                  <div class="step-circle pending">4</div>
+                  <div class="step-lbl pending">Final</div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;" id="tahap-list"></div>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="section-card animate-in">
+          <div class="section-card-header">
+            <div class="section-card-title">Aktivitas <span>Terbaru</span></div>
+          </div>
+          <div class="timeline" id="timeline-list"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══ PAGE: LAPORAN OJL ═══ -->
+    <div id="page-ojl" class="tab-content animate-in">
+      <div class="page-header">
+        <div>
+          <div class="page-tag">● Laporan OJL</div>
+          <h1 class="page-title">Upload <span>Laporan OJL</span></h1>
+        </div>
+        <button class="btn btn-gold" onclick="openModal('modal-upload-laporan')">📤 Upload Laporan Baru</button>
+      </div>
+
+      <div class="alert alert-warning">
+        <span class="alert-ico">⏰</span>
+        <div>
+          <div class="alert-title">Batas Waktu Tahap 3</div>
+          <div class="alert-msg">Laporan OJL Tahap 3 harus dikumpulkan paling lambat <strong>30 September 2025</strong>. Pastikan file sudah dalam format PDF atau DOCX, maks. 10MB.</div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchSubTab(this,'ojl-semua')">Semua Tahap</button>
+        <button class="tab-btn" onclick="switchSubTab(this,'ojl-panduan')">Panduan Upload</button>
+      </div>
+
+      <div id="ojl-semua" class="tab-content active">
+        <div id="laporan-grid" style="display:flex;flex-direction:column;gap:16px;"></div>
+      </div>
+
+      <div id="ojl-panduan" class="tab-content">
+        <div class="section-card">
+          <div class="section-card-header"><div class="section-card-title">Panduan <span>Upload Laporan</span></div></div>
+          <div style="padding:22px;display:flex;flex-direction:column;gap:14px;">
+            <div class="alert alert-info"><span class="alert-ico">📌</span><div><div class="alert-title">Format File</div><div class="alert-msg">File laporan harus dalam format <strong>PDF atau DOCX</strong>. Ukuran maksimal <strong>10 MB</strong> per file. Gunakan nama file: <em>NamaLengkap_Tahap1_OJL.pdf</em></div></div></div>
+            <div class="alert alert-success"><span class="alert-ico">✅</span><div><div class="alert-title">Isi Laporan</div><div class="alert-msg">Setiap laporan harus mencakup: refleksi pembelajaran, foto kegiatan, jurnal harian, dan tanda tangan kepala sekolah.</div></div></div>
+            <div class="alert alert-warning"><span class="alert-ico">⚠️</span><div><div class="alert-title">Perhatian</div><div class="alert-msg">Laporan yang sudah disubmit <strong>tidak dapat diedit</strong>. Hubungi admin BGTK jika perlu revisi.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PAGE: DATA MURID / PESERTA ═══ -->
+    <div id="page-peserta" class="tab-content animate-in">
+      <div class="page-header">
+        <div>
+          <div class="page-tag">● Data Guru</div>
+          <h1 class="page-title">Peserta<span>Saya</span></h1>
+        </div>
+        <button class="btn btn-gold" onclick="openModal('modal-tambah-murid')">＋ Tambah Peserta</button>
+      </div>
+
+      <div class="alert alert-info">
+        <span class="alert-ico">ℹ️</span>
+        <div>
+          <div class="alert-title">Data Guru untuk OJL</div>
+          <div class="alert-msg">Tambahkan Peserta yang menjadi sasaran implementasi CBPR di kelas Anda. Data ini digunakan untuk rekap hasil pretest dan postest.</div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header">
+          <div>
+            <div class="section-card-title">Daftar <span>Peserta</span></div>
+            <div class="section-card-sub" id="murid-count">8 Peserta terdaftar</div>
+          </div>
+          <div class="sc-spacer"></div>
+          <button class="btn btn-ghost btn-sm" onclick="exportMurid()">📥 Ekspor</button>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr><th>#</th><th>Nama Peserta</th><th>Kelas</th><th>NISN</th><th>Skor Pre</th><th>Skor Post</th><th>Peningkatan</th><th>Aksi</th></tr>
+            </thead>
+            <tbody id="tbl-murid"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PAGE: PRETEST & POSTEST ═══ -->
+    <div id="page-pretest" class="tab-content animate-in">
+      <div class="page-header">
+        <div>
+          <div class="page-tag">● Pretest & Postest</div>
+          <h1 class="page-title">Input <span>Hasil Tes</span></h1>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="openModal('modal-upload-tes')">📎 Upload Dokumen Tes</button>
+          <button class="btn btn-primary" onclick="openModal('modal-input-skor')">✏️ Input Skor Peserta</button>
+        </div>
+      </div>
+
+      <!-- Kartu skor guru -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px;" id="skor-cards"></div>
+
+      <!-- Score compare -->
+      <div class="section-card" style="margin-bottom:24px;">
+        <div class="section-card-header">
+          <div class="section-card-title">Perbandingan <span>Skor Rata-rata Peserta</span></div>
+        </div>
+        <div class="score-compare">
+          <div class="score-side">
+            <div class="score-type">Pretest</div>
+            <div class="score-num score-pre" id="avg-pre">—</div>
+            <div class="score-status" id="avg-pre-label">Belum diisi</div>
+          </div>
+          <div class="score-arrow">→</div>
+          <div class="score-side">
+            <div class="score-type">Postest</div>
+            <div class="score-num score-post" id="avg-post">—</div>
+            <div class="score-status" id="avg-post-label">Belum diisi</div>
+            <div class="score-delta" id="avg-delta"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload file tes -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+        <div class="section-card">
+          <div class="section-card-header">
+            <div class="section-card-title">📄 Upload <span>Dokumen Pretest</span></div>
+          </div>
+          <div style="padding:16px 20px;">
+            <div class="upload-zone" id="uz-pretest" ondragover="dragOver(event,'uz-pretest')" ondragleave="dragLeave('uz-pretest')" ondrop="handleDrop(event,'pretest')">
+              <input type="file" accept=".pdf,.docx,.xlsx" onchange="handleFileInput(event,'pretest')">
+              <div class="uz-ico">📄</div>
+              <div class="uz-title">Klik atau seret file di sini</div>
+              <div class="uz-sub">Hasil scan/foto lembar jawaban, rekap nilai</div>
+              <div class="uz-limit">PDF, DOCX, XLSX — maks. 10MB</div>
+            </div>
+            <div class="file-list" id="files-pretest"></div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header">
+            <div class="section-card-title">📄 Upload <span>Dokumen Postest</span></div>
+          </div>
+          <div style="padding:16px 20px;">
+            <div class="upload-zone" id="uz-postest" ondragover="dragOver(event,'uz-postest')" ondragleave="dragLeave('uz-postest')" ondrop="handleDrop(event,'postest')">
+              <input type="file" accept=".pdf,.docx,.xlsx" onchange="handleFileInput(event,'postest')">
+              <div class="uz-ico">📄</div>
+              <div class="uz-title">Klik atau seret file di sini</div>
+              <div class="uz-sub">Hasil scan/foto lembar jawaban, rekap nilai</div>
+              <div class="uz-limit">PDF, DOCX, XLSX — maks. 10MB</div>
+            </div>
+            <div class="file-list" id="files-postest"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PAGE: DOKUMENTASI ═══ -->
+    <div id="page-dokumentasi" class="tab-content animate-in">
+      <div class="page-header">
+        <div>
+          <div class="page-tag">● Dokumentasi</div>
+          <h1 class="page-title">Galeri <span>Dokumentasi</span></h1>
+        </div>
+        <button class="btn btn-gold" onclick="document.getElementById('foto-upload-main').click()">📸 Upload Foto</button>
+      </div>
+      <input type="file" id="foto-upload-main" accept="image/*" multiple style="display:none" onchange="handleFotoInput(event)">
+
+      <div class="alert alert-info">
+        <span class="alert-ico">📸</span>
+        <div>
+          <div class="alert-title">Dokumentasi Kegiatan OJL</div>
+          <div class="alert-msg">Upload foto kegiatan pembelajaran, diskusi, presentasi peserta, dan momen penting lainnya. Format JPG/PNG, maksimal 5MB per foto.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+        <button class="btn btn-ghost btn-sm dok-filter active" onclick="filterDok(this,'semua')">Semua</button>
+        <button class="btn btn-ghost btn-sm dok-filter" onclick="filterDok(this,'kegiatan')">Kegiatan</button>
+        <button class="btn btn-ghost btn-sm dok-filter" onclick="filterDok(this,'presentasi')">Presentasi</button>
+        <button class="btn btn-ghost btn-sm dok-filter" onclick="filterDok(this,'diskusi')">Diskusi</button>
+      </div>
+
+      <div class="foto-grid" id="foto-grid"></div>
+    </div>
+
+    <!-- ═══ PAGE: AKTIVITAS ═══ -->
+    <div id="page-aktivitas" class="tab-content animate-in">
+      <div class="page-header">
+        <div>
+          <div class="page-tag">● Riwayat</div>
+          <h1 class="page-title">Riwayat <span>Aktivitas</span></h1>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-header"><div class="section-card-title">Log <span>Aktivitas Saya</span></div></div>
+        <div class="timeline" id="full-timeline"></div>
+      </div>
+    </div>
+
+    <!-- ═══ PAGE: PROFIL ═══ -->
+    <div id="page-profil" class="tab-content animate-in">
+      <div class="page-header">
+        <div>
+          <div class="page-tag">● Profil</div>
+          <h1 class="page-title">Profil <span>Saya</span></h1>
+        </div>
+        <button class="btn btn-primary" onclick="showToast('Profil disimpan','success')">💾 Simpan Perubahan</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+        <div class="section-card">
+          <div class="section-card-header"><div class="section-card-title">Info <span>Pribadi</span></div></div>
+          <div style="padding:22px;display:flex;flex-direction:column;gap:12px;">
+            <div class="form-grid">
+              <div class="form-group"><div class="form-label">Nama Depan</div><input class="form-input" value="Sari"></div>
+              <div class="form-group"><div class="form-label">Nama Belakang</div><input class="form-input" value="Dewi"></div>
+            </div>
+            <div class="form-group"><div class="form-label">Email</div><input class="form-input" value="sari.dewi@sdn001.sch.id"></div>
+            <div class="form-group"><div class="form-label">No. Telepon</div><input class="form-input" value="081234567890"></div>
+            <div class="form-group"><div class="form-label">Jabatan</div><input class="form-input" value="Guru Kelas 4" readonly style="opacity:0.6;cursor:not-allowed;"></div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header"><div class="section-card-title">Info <span>Sekolah</span></div></div>
+          <div style="padding:22px;display:flex;flex-direction:column;gap:12px;">
+            <div class="form-group"><div class="form-label">Nama Sekolah</div><input class="form-input" value="SDN 001 Pekanbaru" readonly style="opacity:0.6;cursor:not-allowed;"></div>
+            <div class="form-group"><div class="form-label">Kabupaten</div><input class="form-input" value="Pekanbaru" readonly style="opacity:0.6;cursor:not-allowed;"></div>
+            <div class="form-group"><div class="form-label">Mata Pelajaran</div><input class="form-input" value="Matematika"></div>
+            <div class="form-group"><div class="form-label">Ganti Password</div><input type="password" class="form-input" placeholder="Password baru (opsional)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- ═══ MODAL: UPLOAD LAPORAN OJL ═══ -->
+<div class="modal-overlay" id="modal-upload-laporan">
+  <div class="modal-box">
+    <div class="modal-bar"></div>
+    <div class="modal-header">
+      <div class="modal-ico">📋</div>
+      <div>
+        <div class="modal-title">Upload Laporan OJL</div>
+        <div class="modal-sub">Unggah laporan untuk tahap yang dipilih</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-upload-laporan')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group" style="margin-bottom:14px;">
+        <div class="form-label">Pilih Tahap *</div>
+        <select class="form-select" id="lap-tahap">
+          <option value="">-- Pilih Tahap --</option>
+          <option value="1">Tahap 1 — Perencanaan</option>
+          <option value="2">Tahap 2 — Pelaksanaan Awal</option>
+          <option value="3">Tahap 3 — Pelaksanaan Lanjutan</option>
+          <option value="4">Tahap 4 — Final & Refleksi</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:14px;">
+        <div class="form-label">Judul Laporan *</div>
+        <input class="form-input" id="lap-judul" placeholder="cth: Laporan OJL Tahap 3 — SDN 001 Pekanbaru">
+      </div>
+      <div class="form-group" style="margin-bottom:14px;">
+        <div class="form-label">Catatan / Keterangan</div>
+        <textarea class="form-textarea" id="lap-catatan" placeholder="Tambahkan catatan singkat tentang laporan ini..."></textarea>
+      </div>
+      <div class="form-label" style="margin-bottom:8px;">File Laporan *</div>
+      <div class="upload-zone" id="uz-laporan" ondragover="dragOver(event,'uz-laporan')" ondragleave="dragLeave('uz-laporan')" ondrop="handleDrop(event,'laporan')">
+        <input type="file" accept=".pdf,.docx" id="file-laporan" onchange="handleFileInput(event,'laporan')">
+        <div class="uz-ico">📂</div>
+        <div class="uz-title">Klik atau seret file laporan</div>
+        <div class="uz-sub">PDF atau DOCX, maks 10MB</div>
+      </div>
+      <div class="file-list" id="files-laporan"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-upload-laporan')">Batal</button>
+      <button class="btn btn-gold" onclick="submitLaporan()">📤 Submit Laporan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: TAMBAH MURID ═══ -->
+<div class="modal-overlay" id="modal-tambah-murid">
+  <div class="modal-box">
+    <div class="modal-bar"></div>
+    <div class="modal-header">
+      <div class="modal-ico">👨‍🏫</div>
+      <div>
+        <div class="modal-title">Tambah Peserta</div>
+        <div class="modal-sub">Daftarkan Peserta sasaran CBPR</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-tambah-murid')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid" style="margin-bottom:14px;">
+        <div class="form-group"><div class="form-label">Nama Lengkap *</div><input class="form-input" id="m-nama" placeholder="Nama murid"></div>
+        <div class="form-group"><div class="form-label">Kelas *</div>
+          <select class="form-select" id="m-kelas">
+            <option>4A</option><option>4B</option><option>5A</option><option>5B</option><option>6A</option><option>6B</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grid" style="margin-bottom:14px;">
+        <div class="form-group"><div class="form-label">NISN</div><input class="form-input" id="m-nisn" placeholder="xxxxxxxxxx"></div>
+        <div class="form-group"><div class="form-label">Jenis Kelamin</div>
+          <select class="form-select" id="m-jk">
+            <option>Laki-laki</option><option>Perempuan</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><div class="form-label">Skor Pretest</div><input type="number" class="form-input" id="m-pre" placeholder="0–100" min="0" max="100"></div>
+        <div class="form-group"><div class="form-label">Skor Postest</div><input type="number" class="form-input" id="m-post" placeholder="0–100 (opsional)" min="0" max="100"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-tambah-murid')">Batal</button>
+      <button class="btn btn-gold" onclick="tambahMurid()">✓ Simpan Peserta</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: INPUT SKOR PESERTA (guru) ═══ -->
+<div class="modal-overlay" id="modal-input-skor">
+  <div class="modal-box" style="max-width:420px;">
+    <div class="modal-bar"></div>
+    <div class="modal-header">
+      <div class="modal-ico">📝</div>
+      <div>
+        <div class="modal-title">Input Skor Guru</div>
+        <div class="modal-sub">Nilai pretest & postest Anda sendiri</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-input-skor')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;">
+        <div class="skor-input-wrap">
+          <div class="form-label" style="text-align:center;">Pretest Guru</div>
+          <input type="number" class="skor-big-input" id="guru-pre" placeholder="75" min="0" max="100" value="75">
+          <div style="font-size:11px;color:var(--fg2);">dari 100</div>
+        </div>
+        <div class="skor-input-wrap">
+          <div class="form-label" style="text-align:center;">Postest Guru</div>
+          <input type="number" class="skor-big-input" id="guru-post" placeholder="—" min="0" max="100">
+          <div style="font-size:11px;color:var(--fg2);">dari 100</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-input-skor')">Batal</button>
+      <button class="btn btn-primary" onclick="simpanSkorGuru()">💾 Simpan Skor</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: UPLOAD DOKUMEN TES ═══ -->
+<div class="modal-overlay" id="modal-upload-tes">
+  <div class="modal-box">
+    <div class="modal-bar"></div>
+    <div class="modal-header">
+      <div class="modal-ico">📎</div>
+      <div>
+        <div class="modal-title">Upload Dokumen Tes</div>
+        <div class="modal-sub">Soal, lembar jawaban, atau rekap nilai</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-upload-tes')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group" style="margin-bottom:14px;">
+        <div class="form-label">Jenis Dokumen *</div>
+        <select class="form-select" id="tes-jenis">
+          <option>Soal Pretest</option>
+          <option>Lembar Jawaban Pretest</option>
+          <option>Rekap Nilai Pretest</option>
+          <option>Soal Postest</option>
+          <option>Lembar Jawaban Postest</option>
+          <option>Rekap Nilai Postest</option>
+        </select>
+      </div>
+      <div class="upload-zone" id="uz-tes" ondragover="dragOver(event,'uz-tes')" ondragleave="dragLeave('uz-tes')" ondrop="handleDrop(event,'tes')">
+        <input type="file" accept=".pdf,.docx,.xlsx,.jpg,.png" onchange="handleFileInput(event,'tes')">
+        <div class="uz-ico">📎</div>
+        <div class="uz-title">Klik atau seret file</div>
+        <div class="uz-sub">PDF, DOCX, XLSX, JPG, PNG — maks. 10MB</div>
+      </div>
+      <div class="file-list" id="files-tes"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-upload-tes')">Batal</button>
+      <button class="btn btn-primary" onclick="uploadTesDokumen()">📤 Upload</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: PREVIEW FOTO ═══ -->
+<div class="modal-overlay" id="modal-foto" onclick="closeModal('modal-foto')">
+  <div class="modal-box" style="max-width:640px;background:rgba(1,8,20,0.97);">
+    <div style="position:relative;">
+      <img id="preview-foto-img" src="" alt="" style="width:100%;border-radius:16px;display:block;">
+      <button class="modal-close" style="position:absolute;top:12px;right:12px;" onclick="closeModal('modal-foto')">✕</button>
+      <div id="preview-foto-caption" style="padding:14px 18px;font-size:13px;color:var(--fg2);"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════ STATE ══════════════ */
+let skorGuru={pre:75,post:null};
+let muridData=[
+  {id:1,nama:'Andi Pratama',kelas:'4A',nisn:'1234567890',jk:'Laki-laki',pre:65,post:80},
+  {id:2,nama:'Bunga Lestari',kelas:'4A',nisn:'1234567891',jk:'Perempuan',pre:70,post:88},
+  {id:3,nama:'Citra Dewi',kelas:'4B',nisn:'1234567892',jk:'Perempuan',pre:55,post:72},
+  {id:4,nama:'Dimas Aditya',kelas:'4B',nisn:'1234567893',jk:'Laki-laki',pre:80,post:90},
+  {id:5,nama:'Eka Putri',kelas:'5A',nisn:'1234567894',jk:'Perempuan',pre:60,post:75},
+  {id:6,nama:'Fajar Rizky',kelas:'5A',nisn:'1234567895',jk:'Laki-laki',pre:72,post:null},
+  {id:7,nama:'Ghina Safira',kelas:'5B',nisn:'1234567896',jk:'Perempuan',pre:68,post:null},
+  {id:8,nama:'Haris Maulana',kelas:'5B',nisn:'1234567897',jk:'Laki-laki',pre:75,post:85},
+];
+let laporanData=[
+  {id:1,tahap:1,judul:'Laporan Tahap 1 — Perencanaan CBPR',catatan:'Sudah direview pengawas',file:'Laporan_OJL_Tahap1_SariDewi.pdf',ukuran:'2.4 MB',tgl:'2025-02-15',status:'Disetujui'},
+  {id:2,tahap:2,judul:'Laporan Tahap 2 — Pelaksanaan Awal',catatan:'Implementasi di kelas 4A',file:'Laporan_OJL_Tahap2_SariDewi.pdf',ukuran:'3.1 MB',tgl:'2025-04-20',status:'Disetujui'},
+  {id:3,tahap:3,judul:'Laporan Tahap 3 — Pelaksanaan Lanjutan',catatan:'',file:null,ukuran:null,tgl:null,status:'Belum Upload'},
+  {id:4,tahap:4,judul:'Laporan Tahap 4 — Final',catatan:'',file:null,ukuran:null,tgl:null,status:'Belum Upload'},
+];
+let fotoData=[
+  {id:1,nama:'Diskusi Kelompok CBPR',kategori:'diskusi',tgl:'2025-03-10',thumb:'🖼'},
+  {id:2,nama:'Presentasi Murid',kategori:'presentasi',tgl:'2025-03-15',thumb:'🖼'},
+  {id:3,nama:'Foto Bersama Kelas 4A',kategori:'kegiatan',tgl:'2025-04-01',thumb:'🖼'},
+  {id:4,nama:'Kegiatan Pembelajaran',kategori:'kegiatan',tgl:'2025-04-10',thumb:'🖼'},
+];
+let uploadedFiles={laporan:[],pretest:[],postest:[],tes:[]};
+const aktivitas=[
+  {ico:'✅',title:'Laporan Tahap 2 Disetujui',sub:'Admin BGTK menyetujui laporan OJL tahap 2 Anda',tgl:'30 Mar 2025',done:true},
+  {ico:'📤',title:'Upload Laporan Tahap 2',sub:'File Laporan_OJL_Tahap2_SariDewi.pdf berhasil diupload',tgl:'20 Apr 2025',done:true},
+  {ico:'👤',title:'8 Murid Ditambahkan',sub:'Data murid sasaran CBPR berhasil didaftarkan',tgl:'15 Feb 2025',done:true},
+  {ico:'📝',title:'Pretest Murid Diisi',sub:'Rata-rata skor pretest: 68.1',tgl:'10 Feb 2025',done:true},
+  {ico:'🎉',title:'Akun Diaktifkan',sub:'Selamat bergabung di program OJL Fasda CBPR Riau Bertuah',tgl:'10 Jan 2025',done:true},
+];
+const warna=['linear-gradient(135deg,#001433,#003180)','linear-gradient(135deg,#002a50,#0055b3)','linear-gradient(135deg,#1a3a08,#2d6a18)','linear-gradient(135deg,#3a0a0a,#8b1a1a)','linear-gradient(135deg,#2a1a50,#5a3a9a)','linear-gradient(135deg,#003a3a,#0a7a7a)'];
+
+/* ══════════════ THEME ══════════════ */
+(function(){const s=localStorage.getItem('riauTheme');if(s)document.documentElement.setAttribute('data-theme',s);})();
+function toggleTheme(){
+  const h=document.documentElement;
+  const n=h.getAttribute('data-theme')==='dark'?'light':'dark';
+  h.setAttribute('data-theme',n);localStorage.setItem('riauTheme',n);
+  showToast(n==='light'?'☀️ Mode Terang aktif':'🌙 Mode Gelap aktif','info');
+}
+
+/* ══════════════ SIDEBAR MOBILE ══════════════ */
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
+
+/* ══════════════ PAGE NAV ══════════════ */
+const titles={
+  beranda:'Beranda <span>Peserta</span>',
+  ojl:'Laporan <span>OJL</span>',
+  peserta:'Murid <span>Saya</span>',
+  pretest:'Pretest & <span>Postest</span>',
+  dokumentasi:'Galeri <span>Dokumentasi</span>',
+  aktivitas:'Riwayat <span>Aktivitas</span>',
+  profil:'Profil <span>Saya</span>',
+};
+const subs={beranda:'Dashboard',ojl:'Laporan OJL',peserta:'Data Murid',pretest:'Pretest & Postest',dokumentasi:'Dokumentasi',aktivitas:'Riwayat',profil:'Profil'};
+function showPage(name){
+  document.querySelectorAll('.tab-content').forEach(el=>{
+    if(!el.closest('[id^="ojl-"]'))el.classList.remove('active');
+  });
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  const pg=document.getElementById('page-'+name);
+  if(pg)pg.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(el=>{
+    if(el.getAttribute('onclick')&&el.getAttribute('onclick').includes("'"+name+"'"))el.classList.add('active');
+  });
+  document.getElementById('topbar-title').innerHTML=titles[name]||name;
+  document.getElementById('topbar-sub').textContent=subs[name]||name;
+  if(name==='ojl')renderLaporan();
+  if(name==='peserta')renderMurid();
+  if(name==='pretest')renderPretest();
+  if(name==='dokumentasi')renderDokumentasi();
+  if(name==='aktivitas')renderFullTimeline();
+  if(window.innerWidth<900)document.getElementById('sidebar').classList.remove('open');
+}
+
+function switchSubTab(btn,target){
+  const bar=btn.closest('.tab-bar');
+  bar.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const parent=bar.closest('.tab-content')||document.getElementById('page-ojl');
+  parent.querySelectorAll('[id^="ojl-"]').forEach(el=>el.classList.remove('active'));
+  document.getElementById(target).classList.add('active');
+}
+
+/* ══════════════ TOAST ══════════════ */
+function showToast(msg,type='info'){
+  const s=document.getElementById('toast-stack');
+  const t=document.createElement('div');
+  t.className='toast-item '+(type||'');
+  t.innerHTML='<span>'+({success:'✅',error:'❌',warning:'⚠️',info:'ℹ️'}[type]||'ℹ️')+'</span>'+msg;
+  s.prepend(t);
+  setTimeout(()=>t.style.opacity='0',2800);
+  setTimeout(()=>t.remove(),3200);
+}
+
+/* ══════════════ MODAL ══════════════ */
+function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
+document.querySelectorAll('.modal-overlay').forEach(el=>{
+  el.addEventListener('click',e=>{if(e.target===el)closeModal(el.id);});
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')document.querySelectorAll('.modal-overlay.open').forEach(el=>closeModal(el.id));
+});
+
+/* ══════════════ RENDER BERANDA ══════════════ */
+function renderBeranda(){
+  // Stepper tahap list
+  const tahapInfo=[
+    {label:'Tahap 1 — Perencanaan',desc:'Rencana implementasi CBPR di kelas',status:'done'},
+    {label:'Tahap 2 — Pelaksanaan Awal',desc:'Implementasi 2 siklus pembelajaran pertama',status:'done'},
+    {label:'Tahap 3 — Pelaksanaan Lanjutan',desc:'Implementasi siklus 3 & 4, belum diupload',status:'active'},
+    {label:'Tahap 4 — Final & Refleksi',desc:'Evaluasi akhir dan refleksi program',status:'pending'},
+  ];
+  document.getElementById('tahap-list').innerHTML=tahapInfo.map(t=>`
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--tbl-row);border-radius:12px;border:1px solid var(--tbl-bd);">
+      <span style="font-size:18px;">${t.status==='done'?'✅':t.status==='active'?'⏳':'○'}</span>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:700;color:var(--fg);">${t.label}</div>
+        <div style="font-size:11px;color:var(--fg2);margin-top:2px;">${t.desc}</div>
+      </div>
+      ${t.status==='active'?`<button class="btn btn-gold btn-sm" onclick="openModal('modal-upload-laporan')">Upload</button>`:''}
+    </div>
+  `).join('');
+  // Timeline singkat
+  document.getElementById('timeline-list').innerHTML=aktivitas.slice(0,4).map(a=>`
+    <div class="tl-item">
+      <div class="tl-ico ${a.done?'done':''}">${a.ico}</div>
+      <div class="tl-content">
+        <div class="tl-title">${a.title}</div>
+        <div class="tl-sub">${a.sub}</div>
+        <div class="tl-date">${a.tgl}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ══════════════ RENDER LAPORAN ══════════════ */
+function renderLaporan(){
+  const statusColor={
+    'Disetujui':'badge-aktif',
+    'Menunggu Review':'badge-baru',
+    'Belum Upload':'badge-nonaktif',
+    'Revisi':'badge-nonaktif',
+  };
+  document.getElementById('laporan-grid').innerHTML=laporanData.map(l=>`
+    <div class="section-card">
+      <div class="section-card-header">
+        <div style="font-size:20px;">📋</div>
+        <div style="flex:1;">
+          <div class="section-card-title">Tahap ${l.tahap} — <span>${['Perencanaan','Pelaksanaan Awal','Pelaksanaan Lanjutan','Final & Refleksi'][l.tahap-1]}</span></div>
+          <div class="section-card-sub">${l.judul}</div>
+        </div>
+        <span class="badge ${statusColor[l.status]||'badge-baru'}">${l.status}</span>
+      </div>
+      <div style="padding:16px 22px;">
+        ${l.file?`
+          <div class="file-card">
+            <span class="file-ico">📄</span>
+            <div class="file-info">
+              <div class="file-name">${l.file}</div>
+              <div class="file-meta">${l.ukuran} · Diupload ${l.tgl}${l.catatan?' · '+l.catatan:''}</div>
+            </div>
+            <div style="display:flex;gap:6px;">
+              <button class="btn btn-ghost btn-sm" onclick="showToast('Mengunduh file...','info')">⬇️</button>
+            </div>
+          </div>
+        `:`
+          <div style="text-align:center;padding:24px;color:var(--fg2);">
+            <div style="font-size:32px;margin-bottom:10px;opacity:0.4;">📂</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:6px;">Belum ada file</div>
+            <button class="btn btn-gold btn-sm" onclick="document.getElementById('lap-tahap').value='${l.tahap}';openModal('modal-upload-laporan')">📤 Upload Sekarang</button>
+          </div>
+        `}
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ══════════════ RENDER MURID ══════════════ */
+function renderMurid(){
+  const tbody=document.getElementById('tbl-murid');
+  tbody.innerHTML=muridData.map((m,i)=>{
+    const delta=m.post!=null?m.post-m.pre:null;
+    const deltaHtml=delta!=null?`<span style="font-weight:800;color:${delta>0?'var(--green)':delta<0?'var(--red)':'var(--fg2)'}">${delta>0?'+':''}${delta}</span>`:'<span style="color:var(--fg2);opacity:0.5">—</span>';
+    return`<tr>
+      <td style="color:var(--fg2);font-size:12px">${i+1}</td>
+      <td><div class="tbl-user"><div class="tbl-avatar" style="background:${warna[m.id%warna.length]}">${m.nama.split(' ').map(n=>n[0]).slice(0,2).join('')}</div><div><div class="tbl-name">${m.nama}</div><div class="tbl-sub">${m.jk}</div></div></div></td>
+      <td><span class="badge badge-baru">${m.kelas}</span></td>
+      <td style="font-family:monospace;font-size:12px;color:var(--bi5)">${m.nisn}</td>
+      <td><span style="font-family:'Cinzel',serif;font-size:15px;font-weight:900;color:var(--orange)">${m.pre}</span></td>
+      <td>${m.post!=null?`<span style="font-family:'Cinzel',serif;font-size:15px;font-weight:900;color:var(--green)">${m.post}</span>`:'<span style="color:var(--fg2);opacity:0.5">—</span>'}</td>
+      <td>${deltaHtml}</td>
+      <td><div style="display:flex;gap:5px;">
+        <button class="btn btn-ghost btn-sm btn-icon" title="Edit" onclick="editMurid(${m.id})">✏️</button>
+        <button class="btn btn-danger btn-sm btn-icon" title="Hapus" onclick="hapusMurid(${m.id})">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+  document.getElementById('murid-count').textContent=`${muridData.length} murid terdaftar`;
+  document.getElementById('wb-murid').textContent=muridData.length;
+  document.getElementById('stat-murid').textContent=muridData.length;
+  updateAvgScores();
+}
+
+function editMurid(id){
+  const m=muridData.find(x=>x.id===id);if(!m)return;
+  document.getElementById('m-nama').value=m.nama;
+  document.getElementById('m-kelas').value=m.kelas;
+  document.getElementById('m-nisn').value=m.nisn;
+  document.getElementById('m-jk').value=m.jk;
+  document.getElementById('m-pre').value=m.pre;
+  document.getElementById('m-post').value=m.post!=null?m.post:'';
+  openModal('modal-tambah-murid');
+}
+
+function hapusMurid(id){
+  muridData=muridData.filter(x=>x.id!==id);
+  renderMurid();
+  showToast('Murid dihapus','success');
+}
+
+function tambahMurid(){
+  const nama=document.getElementById('m-nama').value.trim();
+  const kelas=document.getElementById('m-kelas').value;
+  if(!nama){showToast('Nama murid wajib diisi','error');return;}
+  const pre=parseInt(document.getElementById('m-pre').value)||0;
+  const post=document.getElementById('m-post').value?parseInt(document.getElementById('m-post').value):null;
+  muridData.push({id:Date.now(),nama,kelas,nisn:document.getElementById('m-nisn').value||'—',jk:document.getElementById('m-jk').value,pre,post});
+  closeModal('modal-tambah-murid');
+  renderMurid();
+  updateAvgScores();
+  addAktivitas('👤',`Murid ${nama} ditambahkan`,`Kelas ${kelas}`);
+  showToast(`Murid ${nama} berhasil ditambahkan!`,'success');
+  ['m-nama','m-nisn','m-pre','m-post'].forEach(id=>document.getElementById(id).value='');
+}
+
+/* ══════════════ RENDER PRETEST ══════════════ */
+function renderPretest(){
+  updateAvgScores();
+  document.getElementById('skor-cards').innerHTML=`
+    <div class="skor-card">
+      <div class="skor-header"><span class="skor-ico">📝</span><div class="skor-label">Pretest Guru</div></div>
+      <div class="skor-val" style="color:var(--orange)">${skorGuru.pre!=null?skorGuru.pre:'—'}</div>
+      <div class="skor-change" style="color:var(--fg2);">dari 100</div>
+    </div>
+    <div class="skor-card">
+      <div class="skor-header"><span class="skor-ico">🎯</span><div class="skor-label">Postest Guru</div></div>
+      <div class="skor-val" style="color:var(--green)">${skorGuru.post!=null?skorGuru.post:'—'}</div>
+      <div class="skor-change ${skorGuru.post!=null&&skorGuru.pre!=null?(skorGuru.post-skorGuru.pre>0?'skor-up':'skor-down'):''}">
+        ${skorGuru.post!=null&&skorGuru.pre!=null?`${skorGuru.post-skorGuru.pre>0?'+':''}${skorGuru.post-skorGuru.pre} poin`:'Belum diisi'}
+      </div>
+    </div>
+    <div class="skor-card">
+      <div class="skor-header"><span class="skor-ico">👥</span><div class="skor-label">Rata-rata Murid</div></div>
+      <div class="skor-val" style="color:var(--bi5)" id="avg-card-post">—</div>
+      <div class="skor-change skor-up" id="avg-card-delta">Hitung otomatis</div>
+    </div>
+  `;
+  updateAvgScores();
+}
+
+function updateAvgScores(){
+  const withPre=muridData.filter(m=>m.pre!=null);
+  const withPost=muridData.filter(m=>m.post!=null);
+  const avgPre=withPre.length?Math.round(withPre.reduce((a,m)=>a+m.pre,0)/withPre.length):null;
+  const avgPost=withPost.length?Math.round(withPost.reduce((a,m)=>a+m.post,0)/withPost.length):null;
+  const elPre=document.getElementById('avg-pre');
+  const elPost=document.getElementById('avg-post');
+  const elDelta=document.getElementById('avg-delta');
+  const elPreLbl=document.getElementById('avg-pre-label');
+  const elPostLbl=document.getElementById('avg-post-label');
+  if(elPre){elPre.textContent=avgPre!=null?avgPre:'—';elPreLbl.textContent=avgPre!=null?`${withPre.length} murid`:'Belum diisi';}
+  if(elPost){elPost.textContent=avgPost!=null?avgPost:'—';elPostLbl.textContent=avgPost!=null?`${withPost.length} murid`:'Belum diisi';}
+  if(elDelta&&avgPre!=null&&avgPost!=null){
+    const d=avgPost-avgPre;
+    elDelta.textContent=`${d>0?'↑ +':'↓ '}${d} poin`;
+    elDelta.style.color=d>0?'var(--green)':'var(--red)';
+  }
+  const elCard=document.getElementById('avg-card-post');
+  const elCardDelta=document.getElementById('avg-card-delta');
+  if(elCard)elCard.textContent=avgPost!=null?avgPost:'—';
+  if(elCardDelta&&avgPre!=null&&avgPost!=null){
+    const d=avgPost-avgPre;
+    elCardDelta.textContent=`${d>0?'+':''}${d} poin dari pretest`;
+    elCardDelta.className='skor-change '+(d>0?'skor-up':'skor-down');
+  }
+}
+
+function simpanSkorGuru(){
+  const pre=parseInt(document.getElementById('guru-pre').value);
+  const post=document.getElementById('guru-post').value?parseInt(document.getElementById('guru-post').value):null;
+  if(isNaN(pre)||pre<0||pre>100){showToast('Skor pretest harus 0–100','error');return;}
+  if(post!=null&&(post<0||post>100)){showToast('Skor postest harus 0–100','error');return;}
+  skorGuru={pre,post};
+  document.getElementById('wb-post').textContent=post!=null?post:'—';
+  closeModal('modal-input-skor');
+  renderPretest();
+  addAktivitas('📝','Skor Guru Diperbarui',`Pretest: ${pre}${post!=null?', Postest: '+post:''}`);
+  showToast('Skor berhasil disimpan','success');
+}
+
+/* ══════════════ RENDER DOKUMENTASI ══════════════ */
+function renderDokumentasi(filter='semua'){
+  const list=filter==='semua'?fotoData:fotoData.filter(f=>f.kategori===filter);
+  const grid=document.getElementById('foto-grid');
+  grid.innerHTML=`
+    <div class="foto-card foto-add" style="position:relative;">
+      <input type="file" accept="image/*" multiple onchange="handleFotoInput(event)">
+      <span>＋</span>
+      <p>Tambah Foto</p>
+    </div>
+  `+list.map(f=>`
+    <div class="foto-card" onclick="previewFoto(${f.id})">
+      <div class="foto-thumb">
+        <div class="foto-thumb-ico">🖼</div>
+        <div class="foto-thumb-txt">${f.nama}</div>
+      </div>
+      <div class="foto-overlay"></div>
+      <div class="foto-caption">${f.nama} · ${f.tgl}</div>
+    </div>
+  `).join('');
+  document.getElementById('stat-foto').textContent=fotoData.length;
+}
+
+function filterDok(btn,cat){
+  document.querySelectorAll('.dok-filter').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderDokumentasi(cat);
+}
+
+function previewFoto(id){
+  const f=fotoData.find(x=>x.id===id);if(!f)return;
+  document.getElementById('preview-foto-img').src='data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480"><rect fill="%23011030" width="640" height="480"/><text x="320" y="220" text-anchor="middle" font-size="64" fill="%234fa3f0">🖼</text><text x="320" y="290" text-anchor="middle" font-family="Arial" font-size="18" fill="%23b3d8ff">${f.nama}</text><text x="320" y="320" text-anchor="middle" font-family="Arial" font-size="13" fill="%234fa3f0">${f.tgl}</text></svg>`);
+  document.getElementById('preview-foto-caption').textContent=f.nama+' · '+f.tgl;
+  openModal('modal-foto');
+}
+
+function handleFotoInput(e){
+  const files=e.target.files;
+  const kategoriPilihan=['kegiatan','presentasi','diskusi'];
+  Array.from(files).forEach((file,i)=>{
+    fotoData.push({id:Date.now()+i,nama:file.name.replace(/\.[^.]+$/,''),kategori:kategoriPilihan[i%3],tgl:new Date().toISOString().slice(0,10),thumb:'🖼'});
+  });
+  renderDokumentasi();
+  addAktivitas('📸',`${files.length} Foto Diupload`,`Dokumentasi kegiatan OJL`);
+  showToast(`${files.length} foto berhasil ditambahkan!`,'success');
+}
+
+/* ══════════════ UPLOAD FILES ══════════════ */
+function dragOver(e,id){e.preventDefault();document.getElementById(id).classList.add('drag');}
+function dragLeave(id){document.getElementById(id).classList.remove('drag');}
+function handleDrop(e,bucket){
+  e.preventDefault();
+  const id='uz-'+bucket;
+  if(document.getElementById(id))document.getElementById(id).classList.remove('drag');
+  handleFiles(e.dataTransfer.files,bucket);
+}
+function handleFileInput(e,bucket){handleFiles(e.target.files,bucket);}
+function handleFiles(files,bucket){
+  Array.from(files).forEach(file=>{
+    const obj={name:file.name,size:formatSize(file.size),progress:0,id:Date.now()+Math.random()};
+    uploadedFiles[bucket]=[...uploadedFiles[bucket],obj];
+    renderFilelist(bucket);
+    simulateUpload(obj,bucket);
+  });
+}
+function formatSize(b){return b>1048576?(b/1048576).toFixed(1)+' MB':(b/1024).toFixed(0)+' KB';}
+function simulateUpload(obj,bucket){
+  let p=0;
+  const t=setInterval(()=>{
+    p+=Math.random()*25;
+    if(p>=100){p=100;clearInterval(t);}
+    obj.progress=Math.round(p);
+    renderFilelist(bucket);
+  },200);
+}
+function getFileIco(name){
+  const ext=name.split('.').pop().toLowerCase();
+  const map={pdf:'📄',docx:'📝',doc:'📝',xlsx:'📊',xls:'📊',jpg:'🖼',jpeg:'🖼',png:'🖼'};
+  return map[ext]||'📎';
+}
+function renderFilelist(bucket){
+  const el=document.getElementById('files-'+bucket);
+  if(!el)return;
+  el.innerHTML=uploadedFiles[bucket].map(f=>`
+    <div class="file-card">
+      <span class="file-ico">${getFileIco(f.name)}</span>
+      <div class="file-info">
+        <div class="file-name">${f.name}</div>
+        <div class="file-meta">${f.size}</div>
+        ${f.progress<100?`<div class="file-prog"><div class="file-prog-bar"><div class="file-prog-fill" style="width:${f.progress}%"></div></div></div>`:'<div style="font-size:11px;color:var(--green);margin-top:3px;">✓ Siap diupload</div>'}
+      </div>
+      <button class="btn btn-ghost btn-sm btn-icon" onclick="removeFile('${bucket}','${f.id}')">✕</button>
+    </div>
+  `).join('');
+}
+function removeFile(bucket,id){
+  uploadedFiles[bucket]=uploadedFiles[bucket].filter(f=>String(f.id)!==String(id));
+  renderFilelist(bucket);
+}
+
+/* ══════════════ SUBMIT LAPORAN ══════════════ */
+function submitLaporan(){
+  const tahap=document.getElementById('lap-tahap').value;
+  const judul=document.getElementById('lap-judul').value.trim();
+  if(!tahap||!judul){showToast('Pilih tahap dan isi judul laporan','error');return;}
+  if(!uploadedFiles.laporan.length){showToast('Upload file laporan terlebih dahulu','error');return;}
+  const f=uploadedFiles.laporan[0];
+  const idx=laporanData.findIndex(l=>l.tahap==tahap);
+  if(idx>-1){
+    laporanData[idx]={...laporanData[idx],judul,file:f.name,ukuran:f.size,tgl:new Date().toISOString().slice(0,10),status:'Menunggu Review',catatan:document.getElementById('lap-catatan').value};
+  }
+  const done=laporanData.filter(l=>l.file).length;
+  const pct=Math.round(done/4*100);
+  document.getElementById('wb-pct').textContent=pct+'%';
+  document.getElementById('wb-bar').style.width=pct+'%';
+  document.getElementById('nav-ojl-pct').textContent=pct+'%';
+  document.getElementById('wb-laporan').textContent=done;
+  document.getElementById('stat-laporan').textContent=done;
+  uploadedFiles.laporan=[];
+  closeModal('modal-upload-laporan');
+  renderLaporan();
+  addAktivitas('📤',`Laporan Tahap ${tahap} Disubmit`,`${judul} · Menunggu review admin`);
+  showToast(`Laporan Tahap ${tahap} berhasil disubmit!`,'success');
+}
+
+/* ══════════════ UPLOAD TES DOKUMEN ══════════════ */
+function uploadTesDokumen(){
+  if(!uploadedFiles.tes.length){showToast('Pilih file terlebih dahulu','error');return;}
+  const jenis=document.getElementById('tes-jenis').value;
+  uploadedFiles.tes=[];
+  renderFilelist('tes');
+  closeModal('modal-upload-tes');
+  addAktivitas('📎',`Dokumen Tes Diupload`,jenis);
+  showToast(`${jenis} berhasil diupload!`,'success');
+}
+
+/* ══════════════ AKTIVITAS ══════════════ */
+function addAktivitas(ico,title,sub){
+  const tgl=new Date().toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'});
+  aktivitas.unshift({ico,title,sub,tgl,done:true});
+}
+function renderFullTimeline(){
+  document.getElementById('full-timeline').innerHTML=aktivitas.map(a=>`
+    <div class="tl-item">
+      <div class="tl-ico ${a.done?'done':''}">${a.ico}</div>
+      <div class="tl-content">
+        <div class="tl-title">${a.title}</div>
+        <div class="tl-sub">${a.sub}</div>
+        <div class="tl-date">${a.tgl}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ══════════════ EXPORT ══════════════ */
+function exportMurid(){
+  showToast('📊 Mengunduh data murid... (simulasi)','info');
+  setTimeout(()=>showToast('✅ File berhasil diunduh','success'),1500);
+}
+
+/* ══════════════ INIT ══════════════ */
+renderBeranda();
+renderMurid();
+</script>
+</body>
+</html>

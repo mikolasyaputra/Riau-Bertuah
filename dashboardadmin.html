@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Riau Bertuah</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bi1:#002f6c;--bi2:#003f88;--bi3:#0055b3;--bi4:#1a78d4;--bi5:#4fa3f0;--bi6:#b3d8ff;
+  --emas:#c8940a;--emas2:#e8b020;--emas3:#ffd060;
+  --red:#e05050;--green:#30b060;--orange:#e08020;
+  --tr:0.28s ease;
+}
+[data-theme="dark"]{
+  --bg:#010c1c;--bg2:#020e22;--bg3:#041226;
+  --sidebar-bg:#010a18;--sidebar-bd:rgba(0,85,179,0.22);
+  --topbar-bg:rgba(1,10,24,0.90);--topbar-bd:rgba(0,85,179,0.20);
+  --fg:#d0e8ff;--fg2:rgba(160,210,255,0.55);--fg3:rgba(160,210,255,0.80);
+  --card-bg:rgba(0,55,140,0.08);--card-bd:rgba(0,85,179,0.20);--card-h:rgba(0,55,140,0.16);
+  --tbl-hd:rgba(0,55,140,0.18);--tbl-row:rgba(0,55,140,0.05);--tbl-row-h:rgba(0,55,140,0.13);
+  --tbl-bd:rgba(0,85,179,0.14);
+  --inp-bg:rgba(0,55,140,0.10);--inp-bd:rgba(0,85,179,0.25);--inp-c:#d0e8ff;--inp-ph:rgba(160,210,255,0.28);
+  --modal-bg:linear-gradient(160deg,#020e22 0%,#010a18 100%);--modal-bd:rgba(0,85,179,0.28);
+  --overlay:rgba(0,4,14,0.88);
+  --pill-bg:rgba(0,55,140,0.12);--pill-bd:rgba(0,85,179,0.22);--pill-c:rgba(160,210,255,0.45);
+  --lbl:rgba(160,210,255,0.48);
+  --sep:rgba(0,85,179,0.15);
+  --badge-aktif-bg:rgba(48,176,96,0.15);--badge-aktif-bd:rgba(48,176,96,0.35);--badge-aktif-c:#50d080;
+  --badge-nonaktif-bg:rgba(224,80,80,0.12);--badge-nonaktif-bd:rgba(224,80,80,0.30);--badge-nonaktif-c:#e08080;
+  --badge-baru-bg:rgba(200,148,10,0.14);--badge-baru-bd:rgba(200,148,10,0.35);--badge-baru-c:#ffd060;
+  --scroll:rgba(0,85,179,0.25);
+}
+[data-theme="light"]{
+  --bg:#eef5ff;--bg2:#f5f9ff;--bg3:#e8f0ff;
+  --sidebar-bg:#f0f6ff;--sidebar-bd:rgba(0,63,136,0.12);
+  --topbar-bg:rgba(240,246,255,0.95);--topbar-bd:rgba(0,63,136,0.12);
+  --fg:#001a3a;--fg2:rgba(0,26,58,0.52);--fg3:rgba(0,26,58,0.78);
+  --card-bg:rgba(255,255,255,0.90);--card-bd:rgba(0,63,136,0.14);--card-h:rgba(255,255,255,0.99);
+  --tbl-hd:rgba(0,63,136,0.08);--tbl-row:rgba(255,255,255,0.60);--tbl-row-h:rgba(0,63,136,0.05);
+  --tbl-bd:rgba(0,63,136,0.10);
+  --inp-bg:rgba(255,255,255,0.95);--inp-bd:rgba(0,63,136,0.20);--inp-c:#001a3a;--inp-ph:rgba(0,26,58,0.28);
+  --modal-bg:linear-gradient(160deg,#f5faff 0%,#e8f2ff 100%);--modal-bd:rgba(0,63,136,0.18);
+  --overlay:rgba(0,20,60,0.45);
+  --pill-bg:rgba(0,63,136,0.07);--pill-bd:rgba(0,63,136,0.15);--pill-c:rgba(0,26,58,0.50);
+  --lbl:rgba(0,26,58,0.50);
+  --sep:rgba(0,63,136,0.10);
+  --badge-aktif-bg:rgba(48,176,96,0.10);--badge-aktif-bd:rgba(48,176,96,0.28);--badge-aktif-c:#1a8040;
+  --badge-nonaktif-bg:rgba(224,80,80,0.08);--badge-nonaktif-bd:rgba(224,80,80,0.22);--badge-nonaktif-c:#b03030;
+  --badge-baru-bg:rgba(200,148,10,0.10);--badge-baru-bd:rgba(200,148,10,0.28);--badge-baru-c:#8a6000;
+  --scroll:rgba(0,63,136,0.18);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;overflow-x:hidden;transition:background var(--tr),color var(--tr);}
+
+/* ══ SCROLLBAR ══ */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:10px;}
+
+/* ══ LAYOUT ══ */
+.layout{display:flex;min-height:100vh;}
+
+/* ══ SIDEBAR ══ */
+.sidebar{
+  width:240px;min-height:100vh;flex-shrink:0;
+  background:var(--sidebar-bg);border-right:1px solid var(--sidebar-bd);
+  display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;bottom:0;z-index:200;
+  transition:background var(--tr),border-color var(--tr),transform var(--tr);
+}
+.sidebar-top{
+  padding:20px 18px 16px;
+  border-bottom:1px solid var(--sidebar-bd);
+  display:flex;align-items:center;gap:12px;
+}
+.sidebar-logo{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--bi2),var(--bi4));
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,85,179,0.45);
+}
+.sidebar-logo svg{width:18px;height:18px;}
+.sidebar-brand{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--fg);letter-spacing:1px;line-height:1.2;}
+.sidebar-brand small{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:var(--fg2);font-weight:600;letter-spacing:2px;text-transform:uppercase;display:block;margin-top:1px;}
+
+/* Gold accent line under logo */
+.sidebar-gold-line{height:2px;margin:0;background:linear-gradient(90deg,var(--bi3),var(--emas2),var(--bi4));background-size:200%;animation:shimmer 4s linear infinite;}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+
+.sidebar-section{padding:18px 14px 8px;font-size:9px;font-weight:700;color:var(--fg2);letter-spacing:2.5px;text-transform:uppercase;}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;margin:2px 8px;border-radius:10px;
+  cursor:pointer;transition:all 0.2s;text-decoration:none;color:var(--fg2);font-size:13px;font-weight:600;
+  position:relative;
+}
+.nav-item:hover{background:var(--card-bg);color:var(--fg);}
+.nav-item.active{background:rgba(0,85,179,0.18);color:var(--bi5);border:1px solid rgba(0,85,179,0.25);}
+[data-theme="light"] .nav-item.active{background:rgba(0,63,136,0.10);color:var(--bi2);border-color:rgba(0,63,136,0.20);}
+.nav-item.active::before{
+  content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:3px;height:60%;background:var(--bi4);border-radius:0 3px 3px 0;
+}
+.nav-ico{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
+.nav-badge{
+  margin-left:auto;background:var(--bi3);color:#fff;
+  font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;
+}
+
+.sidebar-footer{
+  margin-top:auto;padding:14px 14px 18px;
+  border-top:1px solid var(--sidebar-bd);
+}
+.admin-pill{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:12px;
+  background:var(--card-bg);border:1px solid var(--card-bd);
+  cursor:pointer;transition:all 0.2s;
+}
+.admin-pill:hover{background:var(--card-h);}
+.admin-ava{
+  width:32px;height:32px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--bi1),var(--bi4));
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;color:#fff;
+}
+.admin-info{flex:1;min-width:0;}
+.admin-name{font-size:12px;font-weight:700;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.admin-role{font-size:10px;color:var(--fg2);}
+.admin-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;}
+
+/* ══ MAIN AREA ══ */
+.main{margin-left:240px;flex:1;display:flex;flex-direction:column;min-height:100vh;}
+
+/* ══ TOPBAR ══ */
+.topbar{
+  height:62px;display:flex;align-items:center;
+  padding:0 28px;gap:16px;
+  background:var(--topbar-bg);border-bottom:1px solid var(--topbar-bd);
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);
+  transition:background var(--tr);
+}
+.topbar-title{font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:var(--fg);letter-spacing:1px;}
+.topbar-title span{color:var(--bi5);}
+[data-theme="light"] .topbar-title span{color:var(--bi3);}
+.topbar-sep{flex:1;}
+.topbar-search{
+  display:flex;align-items:center;gap:8px;
+  background:var(--inp-bg);border:1px solid var(--inp-bd);
+  border-radius:10px;padding:8px 14px;width:220px;
+  transition:border-color 0.2s;
+}
+.topbar-search:focus-within{border-color:rgba(26,120,212,0.55);}
+.topbar-search input{background:none;border:none;outline:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--inp-c);width:100%;}
+.topbar-search input::placeholder{color:var(--inp-ph);}
+.topbar-search span{font-size:14px;color:var(--fg2);}
+.topbar-btn{
+  width:38px;height:38px;border-radius:50%;
+  background:var(--card-bg);border:1px solid var(--card-bd);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:16px;transition:all 0.2s;position:relative;
+}
+.topbar-btn:hover{background:var(--card-h);}
+.notif-dot{
+  position:absolute;top:6px;right:6px;
+  width:7px;height:7px;border-radius:50%;background:var(--emas3);
+  border:1.5px solid var(--bg);
+}
+
+/* ══ CONTENT ══ */
+.content{padding:24px 28px;flex:1;}
+
+/* ══ PAGE HEADER ══ */
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.page-title-wrap{}
+.page-tag{
+  font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--bi5);background:rgba(0,85,179,0.12);
+  border:1px solid rgba(0,85,179,0.28);
+  border-radius:100px;padding:3px 12px;display:inline-block;margin-bottom:6px;
+}
+[data-theme="light"] .page-tag{color:var(--bi3);background:rgba(0,63,136,0.08);border-color:rgba(0,63,136,0.22);}
+.page-title{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:var(--fg);}
+.page-title span{color:var(--bi5);}
+[data-theme="light"] .page-title span{color:var(--bi3);}
+
+/* ══ STAT CARDS ══ */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.stat-card{
+  background:var(--card-bg);border:1px solid var(--card-bd);
+  border-radius:16px;padding:20px;position:relative;overflow:hidden;
+  transition:all 0.25s;cursor:default;
+}
+.stat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--accent-line,linear-gradient(90deg,var(--bi3),var(--bi5)));
+  border-radius:3px 3px 0 0;
+}
+.stat-card:hover{background:var(--card-h);transform:translateY(-3px);}
+.stat-card-icon{font-size:28px;margin-bottom:10px;}
+.stat-card-val{font-family:'Cinzel',serif;font-size:28px;font-weight:900;color:var(--bi5);line-height:1;}
+[data-theme="light"] .stat-card-val{color:var(--bi2);}
+.stat-card-lbl{font-size:11px;color:var(--fg2);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px;}
+.stat-card-sub{font-size:11px;color:var(--fg2);margin-top:6px;}
+.stat-card-sub .up{color:var(--green);}
+.stat-card-sub .down{color:var(--red);}
+
+/* ══ TABLE SECTION ══ */
+.section-card{
+  background:var(--card-bg);border:1px solid var(--card-bd);
+  border-radius:18px;overflow:hidden;margin-bottom:24px;
+  transition:background var(--tr);
+}
+.section-card-header{
+  padding:18px 22px;display:flex;align-items:center;gap:12px;
+  border-bottom:1px solid var(--sep);flex-wrap:wrap;
+}
+.section-card-title{font-size:15px;font-weight:800;color:var(--fg);}
+.section-card-title span{color:var(--bi5);}
+[data-theme="light"] .section-card-title span{color:var(--bi3);}
+.section-card-sub{font-size:12px;color:var(--fg2);}
+.sc-spacer{flex:1;}
+.sc-filter{
+  display:flex;align-items:center;gap:8px;
+}
+.filter-select{
+  background:var(--inp-bg);border:1px solid var(--inp-bd);
+  border-radius:8px;padding:7px 12px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;
+  color:var(--inp-c);outline:none;cursor:pointer;transition:border-color 0.2s;
+}
+.filter-select:focus{border-color:rgba(26,120,212,0.55);}
+
+/* ══ BUTTONS ══ */
+.btn{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;
+  border:none;border-radius:10px;padding:9px 18px;cursor:pointer;transition:all 0.2s;
+  display:inline-flex;align-items:center;gap:7px;
+}
+.btn-primary{
+  color:#fff;background:linear-gradient(135deg,var(--bi2),var(--bi4));
+  box-shadow:0 4px 14px rgba(0,85,179,0.40);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,85,179,0.55);}
+.btn-gold{
+  color:#1a0800;background:linear-gradient(135deg,var(--emas3),var(--emas2));
+  box-shadow:0 4px 14px rgba(200,148,10,0.35);
+}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(200,148,10,0.50);}
+.btn-ghost{
+  color:var(--fg2);background:var(--card-bg);border:1px solid var(--card-bd);
+}
+.btn-ghost:hover{background:var(--card-h);color:var(--fg);}
+.btn-danger{
+  color:#fff;background:linear-gradient(135deg,#8b1a1a,var(--red));
+  box-shadow:0 4px 14px rgba(224,80,80,0.30);
+}
+.btn-danger:hover{transform:translateY(-2px);}
+.btn-sm{padding:6px 12px;font-size:11.5px;border-radius:8px;}
+.btn-icon{
+  width:32px;height:32px;padding:0;justify-content:center;
+  border-radius:8px;font-size:14px;
+}
+
+/* ══ TABLE ══ */
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+thead tr{background:var(--tbl-hd);}
+th{
+  padding:12px 16px;text-align:left;
+  font-size:10.5px;font-weight:700;color:var(--fg2);
+  letter-spacing:1.5px;text-transform:uppercase;
+  border-bottom:1px solid var(--tbl-bd);white-space:nowrap;
+}
+td{
+  padding:13px 16px;font-size:13px;color:var(--fg3);
+  border-bottom:1px solid var(--tbl-bd);vertical-align:middle;
+}
+tbody tr{background:var(--tbl-row);transition:background 0.15s;}
+tbody tr:hover{background:var(--tbl-row-h);}
+tbody tr:last-child td{border-bottom:none;}
+
+.tbl-avatar{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;color:#fff;flex-shrink:0;
+}
+.tbl-user{display:flex;align-items:center;gap:10px;}
+.tbl-name{font-size:13px;font-weight:700;color:var(--fg);}
+.tbl-email{font-size:11px;color:var(--fg2);}
+
+/* ══ BADGES ══ */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;border-radius:100px;padding:3px 10px;}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.badge-aktif{background:var(--badge-aktif-bg);border:1px solid var(--badge-aktif-bd);color:var(--badge-aktif-c);}
+.badge-nonaktif{background:var(--badge-nonaktif-bg);border:1px solid var(--badge-nonaktif-bd);color:var(--badge-nonaktif-c);}
+.badge-baru{background:var(--badge-baru-bg);border:1px solid var(--badge-baru-bd);color:var(--badge-baru-c);}
+
+/* ══ PAGINATION ══ */
+.pagination{display:flex;align-items:center;gap:6px;padding:14px 22px;border-top:1px solid var(--sep);}
+.page-info{font-size:12px;color:var(--fg2);flex:1;}
+.pg-btn{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--card-bg);border:1px solid var(--card-bd);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;color:var(--fg2);
+}
+.pg-btn:hover{background:var(--card-h);color:var(--fg);}
+.pg-btn.active{background:rgba(0,85,179,0.22);border-color:rgba(0,85,179,0.40);color:var(--bi5);}
+[data-theme="light"] .pg-btn.active{background:rgba(0,63,136,0.12);border-color:rgba(0,63,136,0.30);color:var(--bi2);}
+
+/* ══ MODAL ══ */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:2000;
+  backdrop-filter:blur(14px);align-items:center;justify-content:center;
+  background:var(--overlay);
+}
+.modal-overlay.open{display:flex;animation:fadeIn 0.22s ease;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.modal-box{
+  background:var(--modal-bg);border:1px solid var(--modal-bd);
+  border-radius:22px;width:100%;max-width:560px;
+  position:relative;animation:modalUp 0.30s cubic-bezier(0.34,1.4,0.64,1) both;
+  box-shadow:0 28px 70px rgba(0,0,0,0.65);
+  max-height:92vh;overflow-y:auto;
+}
+@keyframes modalUp{from{opacity:0;transform:translateY(30px) scale(0.96);}to{opacity:1;transform:none;}}
+.modal-bar{
+  position:absolute;top:0;left:0;right:0;height:4px;border-radius:22px 22px 0 0;
+  background:linear-gradient(90deg,var(--bi1),var(--emas),var(--bi3),var(--bi5),var(--bi1));
+  background-size:300%;animation:shimmer 3s linear infinite;
+}
+.modal-header{padding:28px 28px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.modal-ico{
+  width:48px;height:48px;border-radius:12px;
+  background:linear-gradient(135deg,var(--bi1),var(--bi3));
+  display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;
+  box-shadow:0 6px 20px rgba(0,85,179,0.40);
+}
+.modal-title-wrap{}
+.modal-title{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--fg);letter-spacing:1px;}
+.modal-sub{font-size:11px;color:var(--fg2);margin-top:3px;letter-spacing:0.5px;}
+.modal-close{
+  width:30px;height:30px;border-radius:50%;
+  background:var(--card-bg);border:1px solid var(--card-bd);
+  color:var(--fg2);font-size:14px;cursor:pointer;transition:all 0.2s;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.modal-close:hover{opacity:0.7;}
+.modal-body{padding:22px 28px;}
+.modal-footer{padding:0 28px 24px;display:flex;gap:10px;justify-content:flex-end;}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-grid.full{grid-template-columns:1fr;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-label{font-size:11px;font-weight:700;color:var(--lbl);letter-spacing:1px;text-transform:uppercase;}
+.form-input,.form-select,.form-textarea{
+  background:var(--inp-bg);border:1px solid var(--inp-bd);
+  border-radius:10px;padding:11px 14px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;
+  color:var(--inp-c);outline:none;transition:all 0.22s;width:100%;
+}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--inp-ph);}
+.form-input:focus,.form-select:focus,.form-textarea:focus{
+  border-color:rgba(26,120,212,0.60);box-shadow:0 0 0 3px rgba(0,85,179,0.10);
+}
+.form-textarea{resize:vertical;min-height:80px;}
+.form-select{cursor:pointer;}
+.inp-icon-wrap{position:relative;}
+.inp-icon-wrap .ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none;}
+.inp-icon-wrap .form-input{padding-left:38px;}
+
+/* ══ CONFIRM MODAL ══ */
+.confirm-body{padding:20px 28px 6px;text-align:center;}
+.confirm-ico{font-size:48px;margin-bottom:12px;}
+.confirm-title{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--fg);margin-bottom:8px;}
+.confirm-msg{font-size:13px;color:var(--fg2);line-height:1.7;}
+
+/* ══ TOAST ══ */
+#toast-stack{position:fixed;top:76px;right:22px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
+.toast-item{
+  background:var(--modal-bg);border:1px solid var(--modal-bd);
+  border-radius:12px;padding:13px 18px;
+  font-size:13px;font-weight:600;color:var(--fg);
+  box-shadow:0 10px 32px rgba(0,0,0,0.50);
+  animation:toastIn 0.35s cubic-bezier(0.34,1.4,0.64,1) both;
+  display:flex;align-items:center;gap:10px;min-width:260px;max-width:320px;
+  border-left:4px solid var(--bi4);
+}
+.toast-item.success{border-left-color:var(--green);}
+.toast-item.error{border-left-color:var(--red);}
+.toast-item.warning{border-left-color:var(--emas3);}
+@keyframes toastIn{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:none;}}
+
+/* ══ DETAIL PANEL ══ */
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.detail-item{background:var(--tbl-row);border-radius:10px;padding:12px 14px;}
+.detail-lbl{font-size:10px;font-weight:700;color:var(--fg2);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.detail-val{font-size:13px;font-weight:600;color:var(--fg);}
+
+/* ══ EMPTY STATE ══ */
+.empty-state{text-align:center;padding:56px 20px;}
+.empty-ico{font-size:48px;margin-bottom:14px;opacity:0.4;}
+.empty-title{font-size:15px;font-weight:700;color:var(--fg2);margin-bottom:6px;}
+.empty-sub{font-size:13px;color:var(--fg2);opacity:0.7;}
+
+/* ══ PROGRESS BAR ══ */
+.prog-wrap{display:flex;align-items:center;gap:8px;}
+.prog-bar{flex:1;height:6px;background:var(--card-bd);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--bi3),var(--bi5));transition:width 0.5s ease;}
+.prog-val{font-size:11px;font-weight:700;color:var(--fg2);min-width:28px;text-align:right;}
+
+/* ══ TOP BORDER ══ */
+.topline{height:4px;background:linear-gradient(90deg,var(--bi1),var(--emas),var(--bi3),var(--bi5),var(--bi1));background-size:200%;animation:shimmer 5s linear infinite;position:fixed;top:0;left:0;right:0;z-index:999;}
+
+/* ══ THEME TOGGLE ══ */
+.theme-btn .ti{position:absolute;transition:opacity 0.3s,transform 0.4s;}
+[data-theme="dark"]  .ti-d{opacity:1;transform:rotate(0);}
+[data-theme="dark"]  .ti-l{opacity:0;transform:rotate(90deg);}
+[data-theme="light"] .ti-d{opacity:0;transform:rotate(-90deg);}
+[data-theme="light"] .ti-l{opacity:1;transform:rotate(0);}
+.topbar-btn{position:relative;}
+
+/* ══ MOBILE ══ */
+.hamburger{display:none;background:var(--card-bg);border:1px solid var(--card-bd);border-radius:8px;width:36px;height:36px;align-items:center;justify-content:center;cursor:pointer;font-size:18px;}
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;}
+  .hamburger{display:flex;}
+  .stat-row{grid-template-columns:1fr 1fr;}
+  .form-grid{grid-template-columns:1fr;}
+  .content{padding:16px;}
+  .topbar{padding:0 16px;}
+}
+@media(max-width:500px){
+  .stat-row{grid-template-columns:1fr;}
+  .sc-filter{flex-wrap:wrap;}
+}
+
+/* ══ SECTION TABS ══ */
+.tab-bar{display:flex;gap:4px;background:var(--tbl-hd);border-radius:10px;padding:4px;}
+.tab-btn{
+  font-size:12.5px;font-weight:700;padding:7px 16px;border-radius:8px;border:none;
+  background:none;cursor:pointer;transition:all 0.2s;color:var(--fg2);font-family:'Plus Jakarta Sans',sans-serif;
+}
+.tab-btn.active{background:var(--card-bg);color:var(--fg);box-shadow:0 2px 8px rgba(0,0,0,0.15);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* ══ STAT MINI CHART (CSS-only bars) ══ */
+.mini-chart{display:flex;align-items:flex-end;gap:3px;height:32px;}
+.mc-bar{width:8px;border-radius:2px 2px 0 0;background:linear-gradient(to top,var(--bi3),var(--bi5));opacity:0.7;transition:opacity 0.2s;}
+.mc-bar:hover{opacity:1;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+.animate-in{animation:fadeUp 0.45s ease both;}
+</style>
+</head>
+<body>
+
+<div class="topline"></div>
+<div id="toast-stack"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-top">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 18 18" fill="none">
+        <circle cx="9" cy="9" r="8" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+        <g transform="translate(9,9)">
+          <ellipse cx="0" cy="-4.5" rx="1.8" ry="3" fill="rgba(255,208,96,0.9)" transform="rotate(0)"/>
+          <ellipse cx="0" cy="-4.5" rx="1.8" ry="3" fill="rgba(255,208,96,0.7)" transform="rotate(60)"/>
+          <ellipse cx="0" cy="-4.5" rx="1.8" ry="3" fill="rgba(255,208,96,0.9)" transform="rotate(120)"/>
+          <ellipse cx="0" cy="-4.5" rx="1.8" ry="3" fill="rgba(255,208,96,0.7)" transform="rotate(180)"/>
+          <ellipse cx="0" cy="-4.5" rx="1.8" ry="3" fill="rgba(255,208,96,0.9)" transform="rotate(240)"/>
+          <ellipse cx="0" cy="-4.5" rx="1.8" ry="3" fill="rgba(255,208,96,0.7)" transform="rotate(300)"/>
+          <circle r="2.2" fill="rgba(255,255,255,0.95)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="sidebar-brand">
+      Riau Bertuah
+      <small>Panel Admin</small>
+    </div>
+  </div>
+  <div class="sidebar-gold-line"></div>
+
+  <div class="sidebar-section">Menu Utama</div>
+  <a class="nav-item active" onclick="showPage('dashboard')">
+    <span class="nav-ico">🏛️</span> Dashboard
+  </a>
+  <a class="nav-item" onclick="showPage('peserta')">
+    <span class="nav-ico">👥</span> Data Peserta
+    <span class="nav-badge" id="badge-peserta">12</span>
+  </a>
+  <a class="nav-item" onclick="showPage('ojl')">
+    <span class="nav-ico">📋</span> Laporan OJL
+  </a>
+  <a class="nav-item" onclick="showPage('sekolah')">
+    <span class="nav-ico">🏫</span> Data Sekolah
+  </a>
+
+  <div class="sidebar-section">Manajemen</div>
+  <a class="nav-item" onclick="showPage('akun')">
+    <span class="nav-ico">🔑</span> Kelola Akun
+  </a>
+  <a class="nav-item" onclick="showPage('laporan')">
+    <span class="nav-ico">📊</span> Rekap & Ekspor
+  </a>
+  <a class="nav-item" onclick="showPage('pengaturan')">
+    <span class="nav-ico">⚙️</span> Pengaturan
+  </a>
+
+  <div class="sidebar-footer">
+    <div class="admin-pill" onclick="showPage('profil')">
+      <div class="admin-ava">AD</div>
+      <div class="admin-info">
+        <div class="admin-name">Administrator</div>
+        <div class="admin-role">BGTK Provinsi Riau</div>
+      </div>
+      <div class="admin-dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-title" id="topbar-title">
+      Dashboard <span>Admin</span>
+    </div>
+    <div class="topbar-sep"></div>
+    <div class="topbar-search">
+      <span>🔍</span>
+      <input type="text" placeholder="Cari peserta, sekolah..." id="global-search" oninput="globalSearch(this.value)">
+    </div>
+    <button class="topbar-btn" onclick="toggleTheme()" title="Ganti tema">
+      <span class="ti ti-d">🌙</span>
+      <span class="ti ti-l">☀️</span>
+    </button>
+    <button class="topbar-btn" onclick="showToast('Tidak ada notifikasi baru','info')">
+      <span>🔔</span>
+      <div class="notif-dot"></div>
+    </button>
+    <button class="btn btn-gold btn-sm" onclick="openModal('modal-tambah')">
+      <span>＋</span> Tambah Peserta
+    </button>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ═══════════════ PAGE: DASHBOARD ═══════════════ -->
+    <div id="page-dashboard" class="tab-content active animate-in">
+      <div class="page-header">
+        <div class="page-title-wrap">
+          <div class="page-tag">● Overview</div>
+          <h1 class="page-title">Dashboard <span>Riau Bertuah</span></h1>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <select class="filter-select" onchange="showToast('Filter periode diterapkan','success')">
+            <option>Semua Periode</option>
+            <option>2025 Semester 1</option>
+            <option>2025 Semester 2</option>
+            <option>2024</option>
+          </select>
+          <button class="btn btn-ghost btn-sm" onclick="showToast('Data diperbarui','success')">🔄 Refresh</button>
+        </div>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="stat-row">
+        <div class="stat-card" style="--accent-line:linear-gradient(90deg,#003f88,#4fa3f0)">
+          <div class="stat-card-icon">👥</div>
+          <div class="stat-card-val">128</div>
+          <div class="stat-card-lbl">Total Peserta</div>
+          <div class="stat-card-sub"><span class="up">↑ 12 baru</span> bulan ini</div>
+        </div>
+        <div class="stat-card" style="--accent-line:linear-gradient(90deg,#c8940a,#ffd060)">
+          <div class="stat-card-icon">🏫</div>
+          <div class="stat-card-val">34</div>
+          <div class="stat-card-lbl">Sekolah Aktif</div>
+          <div class="stat-card-sub"><span class="up">↑ 5 sekolah</span> baru</div>
+        </div>
+        <div class="stat-card" style="--accent-line:linear-gradient(90deg,#1a6a30,#40c080)">
+          <div class="stat-card-icon">📋</div>
+          <div class="stat-card-val">97</div>
+          <div class="stat-card-lbl">Laporan OJL</div>
+          <div class="stat-card-sub"><span class="up">75%</span> sudah selesai</div>
+        </div>
+        <div class="stat-card" style="--accent-line:linear-gradient(90deg,#8b1a1a,#e05050)">
+          <div class="stat-card-icon">⏳</div>
+          <div class="stat-card-val">31</div>
+          <div class="stat-card-lbl">Belum Lapor</div>
+          <div class="stat-card-sub"><span class="down">↓ perlu tindak lanjut</span></div>
+        </div>
+      </div>
+
+      <!-- Baris bawah: Tabel ringkasan + progress kabupaten -->
+      <div style="display:grid;grid-template-columns:1fr 340px;gap:18px;flex-wrap:wrap;">
+
+        <!-- Peserta Terbaru -->
+        <div class="section-card animate-in" style="animation-delay:0.1s">
+          <div class="section-card-header">
+            <div>
+              <div class="section-card-title">Peserta <span>Terbaru</span></div>
+              <div class="section-card-sub">Ditambahkan oleh admin</div>
+            </div>
+            <div class="sc-spacer"></div>
+            <button class="btn btn-ghost btn-sm" onclick="showPage('peserta')">Lihat Semua →</button>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Peserta</th>
+                  <th>Sekolah</th>
+                  <th>Kabupaten</th>
+                  <th>Status</th>
+                  <th>OJL</th>
+                </tr>
+              </thead>
+              <tbody id="tbl-dashboard">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Progress Kabupaten -->
+        <div class="section-card animate-in" style="animation-delay:0.15s">
+          <div class="section-card-header">
+            <div>
+              <div class="section-card-title">Progress <span>Kabupaten</span></div>
+              <div class="section-card-sub">OJL selesai per wilayah</div>
+            </div>
+          </div>
+          <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;" id="kabupaten-progress">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════ PAGE: PESERTA ═══════════════ -->
+    <div id="page-peserta" class="tab-content animate-in">
+      <div class="page-header">
+        <div class="page-title-wrap">
+          <div class="page-tag">● Data Peserta</div>
+          <h1 class="page-title">Manajemen <span>Peserta</span></h1>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="exportData()">📥 Ekspor Excel</button>
+          <button class="btn btn-primary btn-sm" onclick="showPage('akun')">🔑 Kelola Akun</button>
+          <button class="btn btn-gold" onclick="openModal('modal-tambah')">＋ Tambah Peserta</button>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header">
+          <div>
+            <div class="section-card-title">Daftar <span>Peserta OJL</span></div>
+            <div class="section-card-sub" id="peserta-count-label">Menampilkan semua peserta</div>
+          </div>
+          <div class="sc-spacer"></div>
+          <div class="sc-filter">
+            <select class="filter-select" id="filter-kabupaten" onchange="filterPeserta()">
+              <option value="">Semua Kabupaten</option>
+              <option>Pekanbaru</option>
+              <option>Kampar</option>
+              <option>Bengkalis</option>
+              <option>Rokan Hulu</option>
+              <option>Rokan Hilir</option>
+              <option>Siak</option>
+              <option>Dumai</option>
+              <option>Pelalawan</option>
+              <option>Indragiri Hulu</option>
+              <option>Indragiri Hilir</option>
+              <option>Kuantan Singingi</option>
+              <option>Kepulauan Meranti</option>
+            </select>
+            <select class="filter-select" id="filter-status" onchange="filterPeserta()">
+              <option value="">Semua Status</option>
+              <option value="Aktif">Aktif</option>
+              <option value="Non-aktif">Non-aktif</option>
+              <option value="Baru">Baru</option>
+            </select>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:40px">#</th>
+                <th>Peserta</th>
+                <th>Username</th>
+                <th>Sekolah</th>
+                <th>Kabupaten</th>
+                <th>Jabatan</th>
+                <th>Status</th>
+                <th>OJL</th>
+                <th style="width:120px">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-peserta"></tbody>
+          </table>
+        </div>
+        <div class="pagination" id="pagination-peserta">
+          <div class="page-info" id="page-info-peserta">Menampilkan 1–10 dari 12 data</div>
+          <div style="display:flex;gap:5px;">
+            <div class="pg-btn" onclick="changePage(-1)">‹</div>
+            <div class="pg-btn active" id="pg1" onclick="setPage(1)">1</div>
+            <div class="pg-btn" id="pg2" onclick="setPage(2)">2</div>
+            <div class="pg-btn" onclick="changePage(1)">›</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ PAGE: LAPORAN OJL ═══════════════ -->
+    <div id="page-ojl" class="tab-content animate-in">
+      <div class="page-header">
+        <div class="page-title-wrap">
+          <div class="page-tag">● Laporan OJL</div>
+          <h1 class="page-title">Rekap <span>Laporan OJL</span></h1>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="exportData()">📥 Ekspor</button>
+      </div>
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="section-card-title">Status <span>Pengumpulan OJL</span></div>
+          <div class="sc-spacer"></div>
+          <select class="filter-select">
+            <option>Semua Periode</option><option>2025 Semester 1</option>
+          </select>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr><th>#</th><th>Peserta</th><th>Sekolah</th><th>Tahap 1</th><th>Tahap 2</th><th>Tahap 3</th><th>Final</th><th>Progress</th></tr>
+            </thead>
+            <tbody id="tbl-ojl"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ PAGE: SEKOLAH ═══════════════ -->
+    <div id="page-sekolah" class="tab-content animate-in">
+      <div class="page-header">
+        <div class="page-title-wrap">
+          <div class="page-tag">● Data Sekolah</div>
+          <h1 class="page-title">Daftar <span>Sekolah</span></h1>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('modal-tambah-sekolah')">＋ Tambah Sekolah</button>
+      </div>
+      <div class="section-card">
+        <div class="section-card-header"><div class="section-card-title">Sekolah <span>Terdaftar</span></div></div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Nama Sekolah</th><th>NPSN</th><th>Kabupaten</th><th>Jenjang</th><th>Peserta</th><th>Status</th></tr></thead>
+            <tbody id="tbl-sekolah"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ PAGE: AKUN ═══════════════ -->
+    <div id="page-akun" class="tab-content animate-in">
+      <div class="page-header">
+        <div class="page-title-wrap">
+          <div class="page-tag">● Kelola Akun</div>
+          <h1 class="page-title">Manajemen <span>Akun Login</span></h1>
+        </div>
+        <button class="btn btn-gold" onclick="openModal('modal-tambah')">＋ Buat Akun Peserta</button>
+      </div>
+      <div style="background:rgba(200,148,10,0.08);border:1px solid rgba(200,148,10,0.28);border-radius:14px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:12px;">
+        <span style="font-size:20px;">ℹ️</span>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--emas3);">Kebijakan Pendaftaran</div>
+          <div style="font-size:12px;color:var(--fg2);margin-top:2px;">Peserta <strong>tidak dapat mendaftar sendiri</strong>. Semua akun dibuat oleh Admin BGTK dan Bank Indonesia sesuai data peserta OJL CBPR yang telah diverifikasi.</div>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="section-card-title">Daftar <span>Akun Peserta</span></div>
+          <div class="sc-spacer"></div>
+          <button class="btn btn-ghost btn-sm" onclick="showToast('Reset password dikirim ke semua peserta','warning')">🔄 Reset Semua Password</button>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Nama</th><th>Username</th><th>Role</th><th>Dibuat</th><th>Login Terakhir</th><th>Status</th><th>Aksi</th></tr></thead>
+            <tbody id="tbl-akun"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ PAGE: LAPORAN/EKSPOR ═══════════════ -->
+    <div id="page-laporan" class="tab-content animate-in">
+      <div class="page-header">
+        <div class="page-title-wrap">
+          <div class="page-tag">● Rekap</div>
+          <h1 class="page-title">Rekap & <span>Ekspor Data</span></h1>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+        <div class="section-card">
+          <div class="section-card-header"><div class="section-card-title">Ekspor <span>Data</span></div></div>
+          <div style="padding:22px;display:flex;flex-direction:column;gap:12px;">
+            <button class="btn btn-primary" onclick="exportData()">📊 Ekspor Rekap Peserta (Excel)</button>
+            <button class="btn btn-primary" onclick="exportData()">📋 Ekspor Laporan OJL Semua</button>
+            <button class="btn btn-ghost" onclick="exportData()">📄 Unduh Sertifikat Selesai</button>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header"><div class="section-card-title">Ringkasan <span>Kerjasama</span></div></div>
+          <div style="padding:22px;display:flex;flex-direction:column;gap:10px;">
+            <div class="detail-item"><div class="detail-lbl">Program</div><div class="detail-val">OJL Fasda CBPR 2025</div></div>
+            <div class="detail-item"><div class="detail-lbl">Penyelenggara</div><div class="detail-val">Bank Indonesia & BGTK Provinsi Riau</div></div>
+            <div class="detail-item"><div class="detail-lbl">Total Peserta</div><div class="detail-val">128 Guru Fasda</div></div>
+            <div class="detail-item"><div class="detail-lbl">Target Selesai</div><div class="detail-val">31 Desember 2025</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ PAGE: PENGATURAN ═══════════════ -->
+    <div id="page-pengaturan" class="tab-content animate-in">
+      <div class="page-header">
+        <div class="page-title-wrap">
+          <div class="page-tag">● Pengaturan</div>
+          <h1 class="page-title">Pengaturan <span>Sistem</span></h1>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+        <div class="section-card">
+          <div class="section-card-header"><div class="section-card-title">Info <span>Program</span></div></div>
+          <div style="padding:22px;display:flex;flex-direction:column;gap:12px;">
+            <div class="form-group"><div class="form-label">Nama Program</div><input class="form-input" value="OJL Fasda CBPR Riau Bertuah 2025"></div>
+            <div class="form-group"><div class="form-label">Institusi</div><input class="form-input" value="Bank Indonesia & BGTK Provinsi Riau"></div>
+            <div class="form-group"><div class="form-label">Periode</div><input class="form-input" value="2025 Semester 1 & 2"></div>
+            <button class="btn btn-primary btn-sm" onclick="showToast('Pengaturan disimpan','success')">💾 Simpan Perubahan</button>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header"><div class="section-card-title">Tampilan <span>Aplikasi</span></div></div>
+          <div style="padding:22px;display:flex;flex-direction:column;gap:12px;">
+            <div class="form-group"><div class="form-label">Tema Warna</div>
+              <select class="form-select" onchange="showToast('Tema diterapkan','success')">
+                <option>Biru Bank Indonesia (Default)</option>
+                <option>Melayu Emas</option>
+              </select>
+            </div>
+            <div class="form-group"><div class="form-label">Mode Tampilan</div>
+              <select class="form-select" onchange="toggleTheme()">
+                <option>Gelap (Dark Mode)</option>
+                <option>Terang (Light Mode)</option>
+              </select>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="showToast('Aplikasi direset ke pengaturan awal','warning')">🔄 Reset ke Default</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- ═══════════════ MODAL TAMBAH PESERTA ═══════════════ -->
+<div class="modal-overlay" id="modal-tambah">
+  <div class="modal-box">
+    <div class="modal-bar"></div>
+    <div class="modal-header">
+      <div class="modal-ico">👤</div>
+      <div class="modal-title-wrap">
+        <div class="modal-title">Tambah Peserta</div>
+        <div class="modal-sub">Buat akun peserta OJL baru · Riau Bertuah</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-tambah')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid" style="margin-bottom:14px;">
+        <div class="form-group">
+          <div class="form-label">Nama Depan *</div>
+          <input class="form-input" id="inp-fname" placeholder="Nama depan">
+        </div>
+        <div class="form-group">
+          <div class="form-label">Nama Belakang *</div>
+          <input class="form-input" id="inp-lname" placeholder="Nama belakang">
+        </div>
+      </div>
+      <div class="form-grid" style="margin-bottom:14px;">
+        <div class="form-group">
+          <div class="form-label">Username *</div>
+          <div class="inp-icon-wrap">
+            <span class="ico">🪪</span>
+            <input class="form-input" id="inp-user" placeholder="username_unik" oninput="autoUsername(this)">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Password *</div>
+          <div class="inp-icon-wrap">
+            <span class="ico">🔒</span>
+            <input type="password" class="form-input" id="inp-pass" placeholder="Min. 6 karakter">
+          </div>
+        </div>
+      </div>
+      <div class="form-grid" style="margin-bottom:14px;">
+        <div class="form-group">
+          <div class="form-label">Email</div>
+          <div class="inp-icon-wrap">
+            <span class="ico">📧</span>
+            <input type="email" class="form-input" id="inp-email" placeholder="email@sekolah.sch.id">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">No. Telepon</div>
+          <div class="inp-icon-wrap">
+            <span class="ico">📱</span>
+            <input class="form-input" id="inp-telp" placeholder="08xxxxxxxxxx">
+          </div>
+        </div>
+      </div>
+      <div class="form-grid" style="margin-bottom:14px;">
+        <div class="form-group">
+          <div class="form-label">Sekolah / Instansi *</div>
+          <div class="inp-icon-wrap">
+            <span class="ico">🏫</span>
+            <input class="form-input" id="inp-sekolah" placeholder="Nama sekolah">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Kabupaten / Kota *</div>
+          <select class="form-select" id="inp-kabupaten">
+            <option value="">-- Pilih --</option>
+            <option>Pekanbaru</option><option>Kampar</option><option>Bengkalis</option>
+            <option>Rokan Hulu</option><option>Rokan Hilir</option><option>Siak</option>
+            <option>Dumai</option><option>Pelalawan</option><option>Indragiri Hulu</option>
+            <option>Indragiri Hilir</option><option>Kuantan Singingi</option><option>Kepulauan Meranti</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grid" style="margin-bottom:14px;">
+        <div class="form-group">
+          <div class="form-label">Jabatan</div>
+          <select class="form-select" id="inp-jabatan">
+            <option>Guru</option><option>Kepala Sekolah</option><option>Wakasek</option><option>Staff</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Mata Pelajaran</div>
+          <input class="form-input" id="inp-mapel" placeholder="cth: Matematika, IPS">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:4px;">
+        <div class="form-label">Catatan</div>
+        <textarea class="form-textarea" id="inp-catatan" placeholder="Catatan tambahan (opsional)"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-tambah')">Batal</button>
+      <button class="btn btn-gold" onclick="tambahPeserta()">✓ Simpan Peserta</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODAL DETAIL PESERTA ═══════════════ -->
+<div class="modal-overlay" id="modal-detail">
+  <div class="modal-box">
+    <div class="modal-bar"></div>
+    <div class="modal-header">
+      <div class="modal-ico" id="detail-ico">👤</div>
+      <div class="modal-title-wrap">
+        <div class="modal-title" id="detail-nama">Detail Peserta</div>
+        <div class="modal-sub" id="detail-sekolah">—</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-detail')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="detail-grid" id="detail-grid"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-detail')">Tutup</button>
+      <button class="btn btn-primary btn-sm" onclick="closeModal('modal-detail');showToast('Edit peserta dibuka','info')">✏️ Edit</button>
+      <button class="btn btn-danger btn-sm" id="btn-hapus-detail" onclick="">🗑 Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODAL HAPUS CONFIRM ═══════════════ -->
+<div class="modal-overlay" id="modal-hapus">
+  <div class="modal-box" style="max-width:380px;">
+    <div class="modal-bar" style="background:linear-gradient(90deg,#8b1a1a,var(--red),#8b1a1a);"></div>
+    <button class="modal-close" style="top:14px;right:14px;" onclick="closeModal('modal-hapus')">✕</button>
+    <div class="confirm-body">
+      <div class="confirm-ico">🗑️</div>
+      <div class="confirm-title">Hapus Peserta?</div>
+      <div class="confirm-msg">Data peserta <strong id="hapus-nama">—</strong> akan dihapus permanen. Aksi ini tidak bisa dibatalkan.</div>
+    </div>
+    <div class="modal-footer" style="justify-content:center;padding-top:12px;">
+      <button class="btn btn-ghost" onclick="closeModal('modal-hapus')">Batal</button>
+      <button class="btn btn-danger" id="btn-hapus-confirm" onclick="">🗑 Ya, Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODAL TAMBAH SEKOLAH ═══════════════ -->
+<div class="modal-overlay" id="modal-tambah-sekolah">
+  <div class="modal-box">
+    <div class="modal-bar"></div>
+    <div class="modal-header">
+      <div class="modal-ico">🏫</div>
+      <div class="modal-title-wrap">
+        <div class="modal-title">Tambah Sekolah</div>
+        <div class="modal-sub">Daftarkan sekolah baru ke program</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-tambah-sekolah')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid" style="margin-bottom:14px;">
+        <div class="form-group form-grid full">
+          <div class="form-label">Nama Sekolah *</div>
+          <input class="form-input" id="sk-nama" placeholder="cth: SDN 001 Pekanbaru">
+        </div>
+      </div>
+      <div class="form-grid" style="margin-bottom:14px;">
+        <div class="form-group"><div class="form-label">NPSN</div><input class="form-input" id="sk-npsn" placeholder="10xxxxxx"></div>
+        <div class="form-group"><div class="form-label">Jenjang</div>
+          <select class="form-select" id="sk-jenjang">
+            <option>SD</option><option>SMP</option><option>SMA</option><option>SMK</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:14px;">
+        <div class="form-label">Kabupaten / Kota *</div>
+        <select class="form-select" id="sk-kabupaten">
+          <option value="">-- Pilih --</option>
+          <option>Pekanbaru</option><option>Kampar</option><option>Bengkalis</option>
+          <option>Rokan Hulu</option><option>Rokan Hilir</option><option>Siak</option>
+          <option>Dumai</option><option>Pelalawan</option><option>Indragiri Hulu</option>
+          <option>Indragiri Hilir</option><option>Kuantan Singingi</option><option>Kepulauan Meranti</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-tambah-sekolah')">Batal</button>
+      <button class="btn btn-primary" onclick="tambahSekolah()">✓ Simpan Sekolah</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════
+   DATA
+════════════════════════════ */
+const warna=['linear-gradient(135deg,#001433,#003180)','linear-gradient(135deg,#002a50,#0055b3)','linear-gradient(135deg,#001433,#1a78d4)','linear-gradient(135deg,#1a3a08,#2d6a18)','linear-gradient(135deg,#3a0a0a,#8b1a1a)','linear-gradient(135deg,#2a1a50,#5a3a9a)','linear-gradient(135deg,#003a3a,#0a7a7a)'];
+
+let peserta=[
+  {id:1,fname:'Sari',lname:'Dewi',username:'saridewi',pass:'sari123',email:'sari.dewi@sdn001.sch.id',telp:'081234567890',sekolah:'SDN 001 Pekanbaru',kabupaten:'Pekanbaru',jabatan:'Guru',mapel:'Matematika',status:'Aktif',ojl:75,dibuat:'2025-01-10',loginTerakhir:'2025-03-28',catatan:''},
+  {id:2,fname:'Budi',lname:'Santoso',username:'budisantoso',pass:'budi123',email:'budi.s@smpn2.sch.id',telp:'081987654321',sekolah:'SMPN 2 Kampar',kabupaten:'Kampar',jabatan:'Guru',mapel:'IPS',status:'Aktif',ojl:100,dibuat:'2025-01-12',loginTerakhir:'2025-03-30',catatan:''},
+  {id:3,fname:'Rahma',lname:'Wati',username:'rahmawati',pass:'rahma123',email:'rahma@smkn1.sch.id',telp:'082111222333',sekolah:'SMKN 1 Bengkalis',kabupaten:'Bengkalis',jabatan:'Guru',mapel:'IPA',status:'Baru',ojl:0,dibuat:'2025-03-25',loginTerakhir:'-',catatan:'Peserta baru batch 3'},
+  {id:4,fname:'Doni',lname:'Permana',username:'donipermana',pass:'doni123',email:'doni.p@sman1.sch.id',telp:'083344556677',sekolah:'SMAN 1 Dumai',kabupaten:'Dumai',jabatan:'Guru',mapel:'Ekonomi',status:'Aktif',ojl:50,dibuat:'2025-01-15',loginTerakhir:'2025-03-27',catatan:''},
+  {id:5,fname:'Fitri',lname:'Yani',username:'fitriyani',pass:'fitri123',email:'fitriyani@sdn2.sch.id',telp:'084455667788',sekolah:'SDN 002 Siak',kabupaten:'Siak',jabatan:'Guru',mapel:'PKN',status:'Non-aktif',ojl:25,dibuat:'2025-01-20',loginTerakhir:'2025-02-10',catatan:'Cuti sakit'},
+  {id:6,fname:'Ahmad',lname:'Fauzi',username:'ahmadfauzi',pass:'ahmad123',email:'ahmad.f@smpn1.sch.id',telp:'085566778899',sekolah:'SMPN 1 Rokan Hulu',kabupaten:'Rokan Hulu',jabatan:'Kepala Sekolah',mapel:'-',status:'Aktif',ojl:90,dibuat:'2025-01-08',loginTerakhir:'2025-03-31',catatan:''},
+  {id:7,fname:'Nurhasanah',lname:'Lubis',username:'nurhasanah',pass:'nur123',email:'nurhasanah@smkn2.sch.id',telp:'086677889900',sekolah:'SMKN 2 Rokan Hilir',kabupaten:'Rokan Hilir',jabatan:'Guru',mapel:'Akuntansi',status:'Aktif',ojl:60,dibuat:'2025-01-22',loginTerakhir:'2025-03-29',catatan:''},
+  {id:8,fname:'Syaiful',lname:'Bahri',username:'syaifulbahri',pass:'syaiful123',email:'syaiful@smpn3.sch.id',telp:'087788990011',sekolah:'SMPN 3 Pelalawan',kabupaten:'Pelalawan',jabatan:'Guru',mapel:'B. Indonesia',status:'Baru',ojl:0,dibuat:'2025-03-28',loginTerakhir:'-',catatan:'Peserta batch 3 wilayah baru'},
+  {id:9,fname:'Dewi',lname:'Kurnia',username:'dewikurnia',pass:'dewi123',email:'dewi.k@sman2.sch.id',telp:'088899001122',sekolah:'SMAN 2 Indragiri Hulu',kabupaten:'Indragiri Hulu',jabatan:'Guru',mapel:'Geografi',status:'Aktif',ojl:80,dibuat:'2025-01-18',loginTerakhir:'2025-03-30',catatan:''},
+  {id:10,fname:'Rino',lname:'Saputra',username:'rinosap',pass:'rino123',email:'rino.s@sdn5.sch.id',telp:'089900112233',sekolah:'SDN 005 Kuantan Singingi',kabupaten:'Kuantan Singingi',jabatan:'Guru',mapel:'Matematika',status:'Aktif',ojl:45,dibuat:'2025-02-01',loginTerakhir:'2025-03-25',catatan:''},
+  {id:11,fname:'Aisyah',lname:'Putri',username:'aisyahputri',pass:'aisyah123',email:'aisyah.p@smpn4.sch.id',telp:'081122334455',sekolah:'SMPN 4 Kepulauan Meranti',kabupaten:'Kepulauan Meranti',jabatan:'Guru',mapel:'IPS',status:'Aktif',ojl:70,dibuat:'2025-01-25',loginTerakhir:'2025-03-28',catatan:''},
+  {id:12,fname:'Hendra',lname:'Wijaya',username:'hendraw',pass:'hendra123',email:'hendra.w@smkn3.sch.id',telp:'082233445566',sekolah:'SMKN 3 Indragiri Hilir',kabupaten:'Indragiri Hilir',jabatan:'Wakasek',mapel:'TKJ',status:'Aktif',ojl:55,dibuat:'2025-01-30',loginTerakhir:'2025-03-26',catatan:''},
+];
+
+let sekolahData=[
+  {nama:'SDN 001 Pekanbaru',npsn:'10494001',kabupaten:'Pekanbaru',jenjang:'SD',peserta:3},
+  {nama:'SMPN 2 Kampar',npsn:'10494210',kabupaten:'Kampar',jenjang:'SMP',peserta:2},
+  {nama:'SMKN 1 Bengkalis',npsn:'10494380',kabupaten:'Bengkalis',jenjang:'SMK',peserta:1},
+  {nama:'SMAN 1 Dumai',npsn:'10495100',kabupaten:'Dumai',jenjang:'SMA',peserta:1},
+  {nama:'SDN 002 Siak',npsn:'10495220',kabupaten:'Siak',jenjang:'SD',peserta:1},
+];
+
+const kabupatenData=[
+  {nama:'Pekanbaru',total:18,selesai:14},
+  {nama:'Kampar',total:15,selesai:12},
+  {nama:'Bengkalis',total:12,selesai:8},
+  {nama:'Rokan Hulu',total:10,selesai:9},
+  {nama:'Dumai',total:8,selesai:5},
+  {nama:'Siak',total:7,selesai:4},
+];
+
+let currentPage=1,perPage=10,filteredPeserta=[...peserta];
+
+/* ════════════════════════════
+   THEME
+════════════════════════════ */
+(function(){const s=localStorage.getItem('riauTheme');if(s)document.documentElement.setAttribute('data-theme',s);})();
+function toggleTheme(){
+  const h=document.documentElement;
+  const n=h.getAttribute('data-theme')==='dark'?'light':'dark';
+  h.setAttribute('data-theme',n);localStorage.setItem('riauTheme',n);
+  showToast(n==='light'?'☀️ Mode Terang aktif':'🌙 Mode Gelap aktif','info');
+}
+
+/* ════════════════════════════
+   SIDEBAR MOBILE
+════════════════════════════ */
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
+
+/* ════════════════════════════
+   PAGE NAVIGATION
+════════════════════════════ */
+const pageTitles={
+  dashboard:'Dashboard <span>Admin</span>',
+  peserta:'Data <span>Peserta</span>',
+  ojl:'Laporan <span>OJL</span>',
+  sekolah:'Data <span>Sekolah</span>',
+  akun:'Kelola <span>Akun</span>',
+  laporan:'Rekap <span>& Ekspor</span>',
+  pengaturan:'<span>Pengaturan</span>',
+  profil:'Profil <span>Admin</span>',
+};
+function showPage(name){
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  const pg=document.getElementById('page-'+name);
+  if(pg){pg.classList.add('active');}
+  const navItems=document.querySelectorAll('.nav-item');
+  navItems.forEach(el=>{if(el.getAttribute('onclick')&&el.getAttribute('onclick').includes("'"+name+"'"))el.classList.add('active');});
+  document.getElementById('topbar-title').innerHTML=pageTitles[name]||name;
+  if(name==='peserta')renderPeserta();
+  if(name==='ojl')renderOJL();
+  if(name==='sekolah')renderSekolah();
+  if(name==='akun')renderAkun();
+  if(window.innerWidth<900)document.getElementById('sidebar').classList.remove('open');
+}
+
+/* ════════════════════════════
+   TOAST
+════════════════════════════ */
+function showToast(msg,type='info'){
+  const s=document.getElementById('toast-stack');
+  const t=document.createElement('div');
+  t.className='toast-item '+(type||'');
+  t.innerHTML='<span>'+{success:'✅',error:'❌',warning:'⚠️',info:'ℹ️'}[type]+'</span>'+msg;
+  s.prepend(t);
+  setTimeout(()=>t.style.opacity='0',2800);
+  setTimeout(()=>t.remove(),3200);
+}
+
+/* ════════════════════════════
+   MODAL
+════════════════════════════ */
+function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
+document.querySelectorAll('.modal-overlay').forEach(el=>{
+  el.addEventListener('click',e=>{if(e.target===el)closeModal(el.id);});
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')document.querySelectorAll('.modal-overlay.open').forEach(el=>closeModal(el.id));
+});
+
+/* ════════════════════════════
+   RENDER HELPERS
+════════════════════════════ */
+function getInitials(p){return(p.fname[0]+(p.lname?p.lname[0]:'')).toUpperCase();}
+function getAvaBg(id){return warna[id%warna.length];}
+function badgeHTML(s){
+  if(s==='Aktif')return'<span class="badge badge-aktif">Aktif</span>';
+  if(s==='Non-aktif')return'<span class="badge badge-nonaktif">Non-aktif</span>';
+  return'<span class="badge badge-baru">Baru</span>';
+}
+function progHTML(v){
+  const c=v>=75?'#30b060':v>=40?'#e08020':'#e05050';
+  return`<div class="prog-wrap"><div class="prog-bar"><div class="prog-fill" style="width:${v}%;background:linear-gradient(90deg,${c},${c}cc)"></div></div><div class="prog-val">${v}%</div></div>`;
+}
+function ojlBadge(v){
+  const c=v===100?'badge-aktif':v>0?'badge-baru':'badge-nonaktif';
+  return`<span class="badge ${c}">${v===100?'Selesai':v>0?'Proses':'Belum'}</span>`;
+}
+
+/* ════════════════════════════
+   DASHBOARD
+════════════════════════════ */
+function renderDashboard(){
+  const tbody=document.getElementById('tbl-dashboard');
+  const rows=peserta.slice(0,6);
+  tbody.innerHTML=rows.map(p=>`
+    <tr>
+      <td><div class="tbl-user"><div class="tbl-avatar" style="background:${getAvaBg(p.id)}">${getInitials(p)}</div><div><div class="tbl-name">${p.fname} ${p.lname}</div><div class="tbl-email">${p.email||'-'}</div></div></div></td>
+      <td>${p.sekolah}</td>
+      <td>${p.kabupaten}</td>
+      <td>${badgeHTML(p.status)}</td>
+      <td>${progHTML(p.ojl)}</td>
+    </tr>`).join('');
+
+  const kab=document.getElementById('kabupaten-progress');
+  kab.innerHTML=kabupatenData.map(k=>{
+    const pct=Math.round(k.selesai/k.total*100);
+    return`<div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+        <span style="font-size:12px;font-weight:700;color:var(--fg)">${k.nama}</span>
+        <span style="font-size:11px;color:var(--fg2)">${k.selesai}/${k.total}</span>
+      </div>
+      ${progHTML(pct)}
+    </div>`;
+  }).join('');
+}
+
+/* ════════════════════════════
+   RENDER PESERTA TABLE
+════════════════════════════ */
+function filterPeserta(){
+  const kab=document.getElementById('filter-kabupaten').value;
+  const sts=document.getElementById('filter-status').value;
+  filteredPeserta=peserta.filter(p=>{
+    return(!kab||p.kabupaten===kab)&&(!sts||p.status===sts);
+  });
+  currentPage=1;renderPeserta();
+}
+
+function renderPeserta(){
+  const start=(currentPage-1)*perPage;
+  const slice=filteredPeserta.slice(start,start+perPage);
+  const tbody=document.getElementById('tbl-peserta');
+  if(!slice.length){
+    tbody.innerHTML=`<tr><td colspan="9"><div class="empty-state"><div class="empty-ico">👥</div><div class="empty-title">Tidak ada data peserta</div><div class="empty-sub">Coba ubah filter atau tambahkan peserta baru</div></div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML=slice.map((p,i)=>`
+    <tr>
+      <td style="color:var(--fg2);font-size:12px">${start+i+1}</td>
+      <td><div class="tbl-user"><div class="tbl-avatar" style="background:${getAvaBg(p.id)}">${getInitials(p)}</div><div><div class="tbl-name">${p.fname} ${p.lname}</div><div class="tbl-email">${p.email||'-'}</div></div></div></td>
+      <td style="font-family:monospace;font-size:12px;color:var(--bi5)">${p.username}</td>
+      <td><div style="font-size:12.5px">${p.sekolah}</div></td>
+      <td><span style="font-size:12px;color:var(--fg2)">${p.kabupaten}</span></td>
+      <td><span style="font-size:12px">${p.jabatan}</span></td>
+      <td>${badgeHTML(p.status)}</td>
+      <td>${progHTML(p.ojl)}</td>
+      <td>
+        <div style="display:flex;gap:5px;">
+          <button class="btn btn-ghost btn-sm btn-icon" title="Detail" onclick="openDetail(${p.id})">👁</button>
+          <button class="btn btn-ghost btn-sm btn-icon" title="Edit" onclick="editPeserta(${p.id})">✏️</button>
+          <button class="btn btn-danger btn-sm btn-icon" title="Hapus" onclick="konfirmasiHapus(${p.id})">🗑</button>
+        </div>
+      </td>
+    </tr>`).join('');
+
+  const total=filteredPeserta.length;
+  const totalPage=Math.ceil(total/perPage);
+  document.getElementById('page-info-peserta').textContent=`Menampilkan ${start+1}–${Math.min(start+perPage,total)} dari ${total} data`;
+  document.getElementById('peserta-count-label').textContent=`${total} peserta ditemukan`;
+  document.getElementById('pg1').className='pg-btn'+(currentPage===1?' active':'');
+  document.getElementById('pg2').className='pg-btn'+(currentPage===2?' active':'');
+  document.getElementById('pg2').style.display=totalPage>1?'flex':'none';
+  document.getElementById('badge-peserta').textContent=peserta.length;
+}
+
+function changePage(d){
+  const total=Math.ceil(filteredPeserta.length/perPage);
+  currentPage=Math.max(1,Math.min(total,currentPage+d));
+  renderPeserta();
+}
+function setPage(p){currentPage=p;renderPeserta();}
+
+/* ════════════════════════════
+   DETAIL PESERTA
+════════════════════════════ */
+function openDetail(id){
+  const p=peserta.find(x=>x.id===id);if(!p)return;
+  document.getElementById('detail-nama').textContent=p.fname+' '+p.lname;
+  document.getElementById('detail-sekolah').textContent=p.sekolah+' · '+p.kabupaten;
+  document.getElementById('detail-ico').textContent=getInitials(p);
+  document.getElementById('detail-ico').style.background=getAvaBg(p.id);
+  document.getElementById('detail-ico').style.fontSize='16px';
+  const fields=[
+    {l:'Username',v:p.username},{l:'Email',v:p.email||'-'},
+    {l:'No. Telepon',v:p.telp||'-'},{l:'Jabatan',v:p.jabatan},
+    {l:'Mata Pelajaran',v:p.mapel||'-'},{l:'Kabupaten',v:p.kabupaten},
+    {l:'Status',v:p.status},{l:'Progress OJL',v:p.ojl+'%'},
+    {l:'Tgl Dibuat',v:p.dibuat},{l:'Login Terakhir',v:p.loginTerakhir},
+    {l:'Catatan',v:p.catatan||'-'},
+  ];
+  document.getElementById('detail-grid').innerHTML=fields.map(f=>`
+    <div class="detail-item"><div class="detail-lbl">${f.l}</div><div class="detail-val">${f.v}</div></div>
+  `).join('');
+  document.getElementById('btn-hapus-detail').onclick=()=>{closeModal('modal-detail');konfirmasiHapus(id);};
+  openModal('modal-detail');
+}
+
+function editPeserta(id){
+  const p=peserta.find(x=>x.id===id);if(!p)return;
+  document.getElementById('inp-fname').value=p.fname;
+  document.getElementById('inp-lname').value=p.lname;
+  document.getElementById('inp-user').value=p.username;
+  document.getElementById('inp-pass').value=p.pass;
+  document.getElementById('inp-email').value=p.email||'';
+  document.getElementById('inp-telp').value=p.telp||'';
+  document.getElementById('inp-sekolah').value=p.sekolah;
+  document.getElementById('inp-kabupaten').value=p.kabupaten;
+  document.getElementById('inp-jabatan').value=p.jabatan;
+  document.getElementById('inp-mapel').value=p.mapel||'';
+  document.getElementById('inp-catatan').value=p.catatan||'';
+  openModal('modal-tambah');
+}
+
+/* ════════════════════════════
+   HAPUS PESERTA
+════════════════════════════ */
+function konfirmasiHapus(id){
+  const p=peserta.find(x=>x.id===id);if(!p)return;
+  document.getElementById('hapus-nama').textContent=p.fname+' '+p.lname;
+  document.getElementById('btn-hapus-confirm').onclick=()=>hapusPeserta(id);
+  openModal('modal-hapus');
+}
+function hapusPeserta(id){
+  peserta=peserta.filter(x=>x.id!==id);
+  filteredPeserta=filteredPeserta.filter(x=>x.id!==id);
+  closeModal('modal-hapus');
+  renderPeserta();renderDashboard();renderAkun();
+  showToast('Peserta berhasil dihapus','success');
+}
+
+/* ════════════════════════════
+   TAMBAH PESERTA
+════════════════════════════ */
+function autoUsername(inp){
+  const fn=document.getElementById('inp-fname').value.toLowerCase().replace(/\s/g,'');
+  const ln=document.getElementById('inp-lname').value.toLowerCase().replace(/\s/g,'');
+  if(!inp.value.includes('_manual'))inp.value=fn+(ln?ln.slice(0,4):'');
+}
+function tambahPeserta(){
+  const fname=document.getElementById('inp-fname').value.trim();
+  const lname=document.getElementById('inp-lname').value.trim();
+  const user=document.getElementById('inp-user').value.trim();
+  const pass=document.getElementById('inp-pass').value;
+  const sekolah=document.getElementById('inp-sekolah').value.trim();
+  const kab=document.getElementById('inp-kabupaten').value;
+  if(!fname||!lname||!user||!pass||!sekolah||!kab){
+    showToast('Isi semua kolom wajib (*)','error');return;
+  }
+  if(pass.length<6){showToast('Password minimal 6 karakter','error');return;}
+  if(peserta.find(p=>p.username===user)){showToast('Username sudah digunakan','error');return;}
+  const newP={
+    id:Date.now(),fname,lname,username:user,pass,
+    email:document.getElementById('inp-email').value.trim(),
+    telp:document.getElementById('inp-telp').value.trim(),
+    sekolah,kabupaten:kab,
+    jabatan:document.getElementById('inp-jabatan').value,
+    mapel:document.getElementById('inp-mapel').value.trim(),
+    status:'Baru',ojl:0,
+    dibuat:new Date().toISOString().slice(0,10),
+    loginTerakhir:'-',
+    catatan:document.getElementById('inp-catatan').value.trim(),
+  };
+  peserta.unshift(newP);
+  filteredPeserta=[...peserta];
+  closeModal('modal-tambah');
+  renderPeserta();renderDashboard();renderAkun();
+  showToast('✅ Peserta '+fname+' '+lname+' berhasil ditambahkan!','success');
+  ['inp-fname','inp-lname','inp-user','inp-pass','inp-email','inp-telp','inp-sekolah','inp-mapel','inp-catatan'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('inp-kabupaten').value='';
+}
+
+/* ════════════════════════════
+   OJL
+════════════════════════════ */
+function renderOJL(){
+  const tbody=document.getElementById('tbl-ojl');
+  const tahapIcon=(v)=>v?'<span style="color:var(--green)">✅</span>':'<span style="color:var(--fg2);opacity:0.4">○</span>';
+  tbody.innerHTML=peserta.map((p,i)=>`
+    <tr>
+      <td style="color:var(--fg2);font-size:12px">${i+1}</td>
+      <td><div class="tbl-name">${p.fname} ${p.lname}</div></td>
+      <td style="font-size:12px">${p.sekolah}</td>
+      <td style="text-align:center">${tahapIcon(p.ojl>=25)}</td>
+      <td style="text-align:center">${tahapIcon(p.ojl>=50)}</td>
+      <td style="text-align:center">${tahapIcon(p.ojl>=75)}</td>
+      <td style="text-align:center">${tahapIcon(p.ojl>=100)}</td>
+      <td>${progHTML(p.ojl)}</td>
+    </tr>`).join('');
+}
+
+/* ════════════════════════════
+   SEKOLAH
+════════════════════════════ */
+function renderSekolah(){
+  const tbody=document.getElementById('tbl-sekolah');
+  tbody.innerHTML=sekolahData.map((s,i)=>`
+    <tr>
+      <td style="color:var(--fg2);font-size:12px">${i+1}</td>
+      <td><div class="tbl-name">${s.nama}</div></td>
+      <td style="font-family:monospace;font-size:12px;color:var(--bi5)">${s.npsn}</td>
+      <td>${s.kabupaten}</td>
+      <td><span class="badge badge-baru">${s.jenjang}</span></td>
+      <td style="font-weight:700;color:var(--fg)">${s.peserta}</td>
+      <td><span class="badge badge-aktif">Aktif</span></td>
+    </tr>`).join('');
+}
+
+function tambahSekolah(){
+  const nama=document.getElementById('sk-nama').value.trim();
+  const npsn=document.getElementById('sk-npsn').value.trim();
+  const kab=document.getElementById('sk-kabupaten').value;
+  const jenjang=document.getElementById('sk-jenjang').value;
+  if(!nama||!kab){showToast('Isi nama sekolah dan kabupaten','error');return;}
+  sekolahData.unshift({nama,npsn:npsn||'-',kabupaten:kab,jenjang,peserta:0});
+  closeModal('modal-tambah-sekolah');
+  renderSekolah();
+  showToast('Sekolah '+nama+' berhasil ditambahkan','success');
+}
+
+/* ════════════════════════════
+   AKUN
+════════════════════════════ */
+function renderAkun(){
+  const tbody=document.getElementById('tbl-akun');
+  tbody.innerHTML=peserta.map((p,i)=>`
+    <tr>
+      <td style="color:var(--fg2);font-size:12px">${i+1}</td>
+      <td><div class="tbl-user"><div class="tbl-avatar" style="background:${getAvaBg(p.id)};width:28px;height:28px;font-size:10px">${getInitials(p)}</div><div class="tbl-name">${p.fname} ${p.lname}</div></div></td>
+      <td style="font-family:monospace;font-size:12px;color:var(--bi5)">${p.username}</td>
+      <td><span class="badge badge-baru">Peserta OJL</span></td>
+      <td style="font-size:12px;color:var(--fg2)">${p.dibuat}</td>
+      <td style="font-size:12px;color:var(--fg2)">${p.loginTerakhir}</td>
+      <td>${badgeHTML(p.status)}</td>
+      <td>
+        <div style="display:flex;gap:5px;">
+          <button class="btn btn-ghost btn-sm" onclick="showToast('Reset password terkirim ke ${p.fname}','success')" title="Reset Password">🔄</button>
+          <button class="btn btn-danger btn-sm btn-icon" onclick="konfirmasiHapus(${p.id})" title="Hapus">🗑</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+/* ════════════════════════════
+   GLOBAL SEARCH
+════════════════════════════ */
+function globalSearch(q){
+  if(!q){filteredPeserta=[...peserta];renderPeserta();return;}
+  const ql=q.toLowerCase();
+  filteredPeserta=peserta.filter(p=>
+    (p.fname+' '+p.lname).toLowerCase().includes(ql)||
+    p.username.toLowerCase().includes(ql)||
+    p.sekolah.toLowerCase().includes(ql)||
+    p.kabupaten.toLowerCase().includes(ql)
+  );
+  currentPage=1;
+  showPage('peserta');
+  renderPeserta();
+}
+
+/* ════════════════════════════
+   EXPORT (SIMULASI)
+════════════════════════════ */
+function exportData(){
+  showToast('📊 Mengunduh data... (simulasi)','info');
+  setTimeout(()=>showToast('✅ Data berhasil diunduh','success'),1500);
+}
+
+/* ════════════════════════════
+   INIT
+════════════════════════════ */
+renderDashboard();
+renderPeserta();
+</script>
+</body>
+</html>
